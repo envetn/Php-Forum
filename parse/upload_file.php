@@ -54,7 +54,7 @@ if(isset($_SESSION['uid'])){
 			$sql = "INSERT INTO galleryImages 
 			(userId,image,name,description,galleryId) VALUES ('".$id."','".$fullFilePath."','".$name."','".$description."','".$galleryId."')";
 		$res = mysql_query($sql) or die(mysql_error());
-		  
+		  header("location: ../gallery.php");
 		  
 		 /* echo "Stored in: " . "upload/" . $_FILES["file"]["name"];*/
 		}

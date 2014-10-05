@@ -4,7 +4,7 @@ include_once("../connect_db.php");
 if(isset($_POST['user_submit']))
 {
 	$username = $_POST['user_name'];
-	$password = $_POST['user_password'];
+	$password = md5($_POST['user_password']);
 	$email = $_POST['user_email'];
 	$email_notify = $_POST['email_notify'];
 	

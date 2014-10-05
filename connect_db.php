@@ -21,11 +21,11 @@ function login()
 {
 	if(!isset($_SESSION['uid']))
 	{
-		$login =  "<form action='login_parse.php' method='post'>Username: <input type='text' name='username' /> &nbsp;Password <input type='password' name='password' /><input type='submit' name='submit' value='log in'/>";
+		$login =  "<form action='parse/login_parse.php' method='post'>Username: <input type='text' name='username' /> &nbsp;Password <input type='password' name='password' /><input type='submit' name='submit' value='log in'/>";
 	}
 	else
 	{
-		$login =  "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='logout_parse.php'>logout</a></p>";
+		$login =  "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='parse/logout_parse.php'>logout</a></p>";
 	}
 	return $login;
 }

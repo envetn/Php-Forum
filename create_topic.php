@@ -1,5 +1,10 @@
-<?php session_start();?>
-<?php 
+<?php  
+session_start();
+	include('header.php');
+	include_once('connect_db.php');
+	include('config.php');
+echo displayUserInfo();
+
 if((!isset($_SESSION['uid'])) || ($_GET['cid'] =="" ))
 {
 	header("Location: index.php");
@@ -43,17 +48,17 @@ a
 <h2> Forum - create topic</h2>
 <p> Basic login</p>
 <?php
-echo "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='logout_parse.php'>logout</a>";
+echo "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='parse/logout_parse.php'>logout</a>";
 
 ?>
 <hr/>
 
 	<div id="content">
-	<form action="create_topic_parse.php" method="post">
+	<form action="parse/create_topic_parse.php" method="post">
 	<p>Topic title</p>
-	<input type='text' name='topic_title' size='98' maxlength='150'/>
+	<input type='text' name='topic_title' size='50' maxlength='150'/>
 	<p>Topic Content </p>
-	<textarea name='topic_content' rows='5' cols='75'></textarea><br/><br/>
+	<textarea name='topic_content' rows='10' cols='20'></textarea><br/><br/>
 	<input type='hidden' name='cid' value='<?php echo $cid;?>'/>
 	<input type='submit' name='topic_submit' value='Create your topic' />
 	</div>

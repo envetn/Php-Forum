@@ -19,7 +19,7 @@ include('../include/header.php');
 <h2> Forum - reply post</h2>
 <p> Basic login</p>
 	<div id="content">
-	<form action="create_user_parse.php" method="post">
+	<form action="parse/create_user_parse.php" method="post">
 	<p>username</p>
 	<input type='text' name='user_name' size='28' maxlength='150'/>
 	<p>password</p>

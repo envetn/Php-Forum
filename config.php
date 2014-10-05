@@ -7,7 +7,7 @@ Some functions for the whole page
 
 function displayUserInfo(){
 	if(!isset($_SESSION['uid'])){
-		return "<div class='leftBarUser'><form action='login_parse.php' method='post'>
+		return "<div class='leftBarUser'><form action='parse/login_parse.php' method='post'>
 		Username<br/> <input type='text' name='username' /> &nbsp;<br/>
 		Password<br/> <input type='password' name='password' /><br/>
 		<input type='submit' name='submit' value='log in'></form><a href='index.php'> Return to index</a></div>";
@@ -29,7 +29,7 @@ function displayUserInfo(){
 	}
 	return $HTML .= "<a href='index.php'> Return to index</a><br/>
 	<a href='addGallery.php'>Create gallery</a><br/>
-	<a href='logout_parse.php'>logout</a></div>";
+	<a href='parse/logout_parse.php'>logout</a></div>";
 
 }
 function getUserTable($uid){

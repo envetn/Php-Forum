@@ -1,6 +1,7 @@
 <?php
 /*
-*
+* Parseing files for uploading. 
+* Using full file path to where the file is uploaded
 * http://www.w3schools.com/php/php_file_upload.asp
 */session_start();
 if(isset($_SESSION['uid'])){
@@ -39,7 +40,6 @@ if(isset($_SESSION['uid'])){
 	} else {
 	  echo "Invalid file";
 	}
-
 }else{
 
 echo "not logged in";

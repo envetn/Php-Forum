@@ -4,42 +4,9 @@ a
 {
 	color:0000ff;
 }
-.cat_links
-{
-	display:block;
-	padding: 5px;
-	padding-top: 10px;
-	padding-bottom:10px;
-	border: 1px solid #000000;
-	margin-bottom:5px;
-	background-color:#cccccc;
-	color:#000000;
-}
-.cat_links:hover
-{
-	background-color: #dddddd;
-}
-table tr td
-{
-background:white;
-}
 
-.OP_feild{
-background:green;
--moz-border-radius-bottomright: 25px 50px;
-border-bottom-right-radius: 25px 50px;
-}
-.normal_field{
-background:#FF8533;
--moz-border-radius-bottomright: 25px 50px;
-border-bottom-right-radius: 25px 50px;
-}
-.pagin{
-float:right;
-margin-right:10;
 
-font-size:1.5em;
-}
+
 </style>
 
 <?php

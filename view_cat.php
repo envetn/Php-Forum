@@ -3,21 +3,6 @@ a
 {
 	color:0000ff;
 }
-.cat_links
-{
-	display:block;
-	padding: 5px;
-	padding-top: 10px;
-	padding-bottom:10px;
-
-	margin-bottom:5px;
-	background-color:#cccccc;
-	color:#000000;
-}
-.cat_links:hover
-{
-	background-color: #dddddd;
-}
 
 
 </style>
@@ -62,7 +47,7 @@ else
 		include_once("connect_db.php");
 		$cid = $_GET['cid'];
 		if(isset($_SESSION['uid'])){
-			$logged = " | <a href='create_topic.php?cid={$cid}'>Create a topic </a>";
+			$logged = " | <a href='create_topic.php?cid={$cid}'><button> Create a topic </button></a>";
 		}
 		else{
 			$logged = " | Please login";
@@ -78,9 +63,9 @@ else
 		$sql2 = "SELECT * FROM topic WHERE category_id='".$cid."' ORDER BY topic_replay_date DESC";
 		$res2 = mysql_query($sql2) or die(mysql_error());
 		if(mysql_num_rows($res2) > 0){
-			
+		
 			$topics  = "<table width='100%' style='border-collapse:collapse;'>";
-			$topics .= "<tr><td colspan='3'><a href='index.php'> Return to index</a>".$logged."<br/></td></tr>";
+			$topics .= "<tr><td colspan='3'><a href='index.php'><button> Return to index</button></a>".$logged."<br/></td></tr>";
 			$topics .= "<tr style='background-color:#dddddd;'><td>Topic Title </td><td width='65' align='center'> Replies </td><td width='65' align='center'>Views</td></tr>";
 			$topics .= "<tr><td colspan='3'><hr/></td></tr>";
 			
@@ -100,7 +85,7 @@ else
 				}
 				
 				$topics .= "
-					<td > <a class='cat_links'href='view_topic.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $creator." on ".$date."</span></a></td>";
+					<td > <a class='cat_threads'href='view_topic.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $creator." on ".$date."</span></a></td>";
 				
 				
 				$topics .= "<td align='center'>$max</td><td align='center'>".$views."</td>";

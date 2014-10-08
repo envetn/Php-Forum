@@ -37,7 +37,7 @@ if(isset($_POST['create'])){
 }
 ?>
 <?php
-
+/*
 $table = "<form method='post'><div style='width:800px; '><div style='width:350px; padding:20px; float:left;'>";
 for($i=0;$i<1;$i++){
 	 $table .= 
@@ -51,11 +51,33 @@ for($i=0;$i<1;$i++){
 		
 		
 		
-		echo $table;
+		echo $table;*/
 ?>
-<form action="parse/upload_file.php" method="post"
-enctype="multipart/form-data">
-<label for="file">Filename:</label>
-<input type="file" name="file" id="file"><br>
-<input type="submit" name="submit" value="Submit">
-</form>
+<div style='width:80%; padding-left:20%; margin: 0 auto;'>
+
+	<div id='leftColumnGalleryUpload'>
+		<h2>Upload image</h2>
+		<form action="parse/upload_file.php" method="post"
+		enctype="multipart/form-data">
+		name<br/><input name='name' value=''></input><br/>
+		Description<br/><textarea name='description' style='width:60%;' value='' rows='5'></textarea><br/>
+		<label for="file">Filename:</label><br/>
+		<input type="file" name="file" id="file"><br>
+		<input type="submit" name="submit" value="Submit">
+		</form>
+	</div>
+
+	<div id='rightColumnGalleryUpload'>
+		<h2>Multiple Image Upload Form</h2>
+		
+		<form action="parse/upload_multi_files.php" method="post" enctype="multipart/form-data">
+		<input name='m_name' placeholder='Name' value=''></input><br/>
+		<input name='m_description' placeholder='Description' value=''></input><br/>
+		  <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
+		  <input type="submit" value="Upload!" />
+		</form>
+	</div>
+
+
+
+</div>

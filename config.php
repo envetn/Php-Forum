@@ -140,4 +140,10 @@ function searchPost($searchVal = "asd", $greedy=1){
 	}
 	return $returnVal;
 }
+
+/*check if the operativsystem is linux*/
+function linux_server()
+{
+    return in_array(strtolower(PHP_OS), array("linux", "superior operating system"));
+}
 ?>

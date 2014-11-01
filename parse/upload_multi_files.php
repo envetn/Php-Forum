@@ -6,15 +6,26 @@
 */
 session_start();
 include_once("../connect_db.php");
+include_once("../config.php");
 if(isset($_SESSION['uid'])){
 
-	if(!is_dir( "F:/test_web/Current/working/forum/userImg/Gallery/" . $_SESSION['uid'])){
-		mkdir( "F:/test_web/Current/working/forum/userImg/Gallery/" . $_SESSION['uid']);
-		echo  "hellooo";
+if(linux_server()){
+
+	$path = "/home/pi/www/forum/userImg/Gallery/" . $_SESSION['uid'];
+	if(!is_dir("/home/pi/www/forum/userImg/Gallery/" . $_SESSION['uid'])){
+		mkdir("/home/pi/www/forum/userImg/Gallery/". $_SESSION['uid']);
+		//why is does this command not work with variable?
 	}
+}else{
+
+	$path = "F:/test_web/Current/working/forum/userImg/Gallery/" .$_SESSION['uid'] ."/"; // Upload directory
+	if(!is_dir( "F:/test_web/Current/working/forum/userImg/Gallery/". $_SESSION['uid'])){
+		mkdir( "F:/test_web/Current/working/forum/userImg/Gallery/". $_SESSION['uid']);
+		//why is does this command not work with variable?
+	}
+}
 	$valid_formats = array("jpg", "png"/*, "gif"*/, "zip", "bmp");
 	$max_file_size = 1024*100000; //100 kb
-	$path = "F:/test_web/Current/working/forum/userImg/Gallery/" .$_SESSION['uid'] ."/"; // Upload directory
 	$count = 0;
 
 	if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
@@ -40,8 +51,9 @@ if(isset($_SESSION['uid'])){
 					continue; // Skip invalid file formats
 				}
 				else{ // No error found! Move uploaded files 
-					if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.$name))
+					if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.DIRECTORY_SEPARATOR.$name))
 					$count++; // Number of successfully uploaded file
+					echo "Added: " . $path .DIRECTORY_SEPARATOR. $name . "<br/>";
 					
 				}
 			}
@@ -66,7 +78,7 @@ if(isset($_SESSION['uid'])){
 			
 			
 			
-			
+		}
 			
 			
 			
@@ -74,7 +86,7 @@ if(isset($_SESSION['uid'])){
 			
 			
 		}
-	}
+	
 }else{
 	die("PLEASE LOG IN TO SUBMIT PORNPICTURES");
 }

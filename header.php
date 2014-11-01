@@ -22,3 +22,4 @@
 	<a id='index-' href='index.php'>Forum </a>
 	<a id='index-' href='gallery.php'>Gallery </a>
 </nav>
+

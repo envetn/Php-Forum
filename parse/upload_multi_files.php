@@ -25,7 +25,7 @@ if(linux_server()){
 	}
 }
 	$valid_formats = array("jpg", "png"/*, "gif"*/, "zip", "bmp");
-	$max_file_size = 1024*100000; //100 kb
+	$max_file_size = 1024*1000000; //100 kb
 	$count = 0;
 
 	if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
@@ -39,6 +39,7 @@ if(linux_server()){
 		/******************/
 		foreach ($_FILES['files']['name'] as $f => $name) {     
 			if ($_FILES['files']['error'][$f] == 4) {
+				
 				continue; // Skip file if any error found
 			}	       
 			if ($_FILES['files']['error'][$f] == 0) {	           
@@ -73,8 +74,8 @@ if(linux_server()){
 			$sql = "INSERT INTO galleryImages 
 			(userId,image,name,description,galleryId) VALUES ('".$id."','".$fullFilePath."','".$g_name."','".$g_description."','".$galleryId."')";
 			$res = mysql_query($sql) or die(mysql_error());
-			header("location: ../addGallery.php");
-	
+			
+		var_dump($_FILES);
 		}			
 	}
 	

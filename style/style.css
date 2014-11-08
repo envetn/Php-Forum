@@ -171,8 +171,15 @@ font-size:16px;
   text-align:center;
   padding:5%;
 }
-.div_single_gallery a{
-
+.div_single_gallery img{
+	background:#001;
+	border:1px solid black;
+	border-bottom-right-radius: 30px 100px;
+	border-top-right-radius: 30px 50px;
+	padding:10px;
+	
+	border-bottom-left-radius: 50px 100px;
+	border-top-left-radius: 30px 50px;
 }
 
 #parent_image{
@@ -185,8 +192,26 @@ font-size:16px;
 .child_image{
 	float: left;
     width: 300px;
-	border:1px solid black;
+
 	
+
+}
+.child_image img{
+width:250px; 
+height:250px;
+	margin:0px;
+	padding:10px;
+	background:#001;
+	border:1px solid black;
+	border-bottom-right-radius: 30px 100px;
+	border-top-right-radius: 30px 50px;
+	
+	border-bottom-left-radius: 30px 100px;
+	border-top-left-radius: 30px 50px;
+}
+.child_image p {
+margin:0px;
+padding:0px;
 }
 
 

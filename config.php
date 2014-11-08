@@ -21,7 +21,8 @@ function displayUserInfo(){
 		if(mysql_num_rows($res) > 0){
 			while($row = mysql_fetch_assoc($res)){
 				if($row['admin'] == 1){	
-					$HTML .= "&bull;<a href='addUser.php'> Add User </a></p>";
+					$HTML .= "&bull;<a href='addUser.php'> Add User </a><br/>";
+					$HTML .= "&bull;<a href='parse/clearGalleryDb_parse.php'> Clear image database </a></p>";
 				}
 			}
 		}
@@ -81,6 +82,17 @@ function getUserEdit($uid){
 		return $userTable;
 }
 
+function getUserNameFromUid($uid)
+{
+	$sql = "SELECT * FROM users WHERE id={$uid} LIMIT 1";
+	$res = mysql_query($sql) or die(mysql_error());
+	while($row = mysql_fetch_assoc($res))
+	{
+		return $row['username'];
+	}
+
+
+}
 function getUserThreads($uid){
 	//$sql = "SELECT * FROM posts WHERE post_creator = {$uid}";
 	

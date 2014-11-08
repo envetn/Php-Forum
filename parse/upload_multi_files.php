@@ -75,7 +75,7 @@ if(linux_server()){
 			(userId,image,name,description,galleryId) VALUES ('".$id."','".$fullFilePath."','".$g_name."','".$g_description."','".$galleryId."')";
 			$res = mysql_query($sql) or die(mysql_error());
 			
-		var_dump($_FILES);
+		echo "<pre" . var_dump($_FILES) . "</pre";
 		}			
 	}
 	

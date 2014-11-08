@@ -180,11 +180,12 @@ font-size:16px;
 	text-align:center;
 	width:100%;
 	background:white;
+	
 }
-
 .child_image{
 	float: left;
     width: 300px;
+	border:1px solid black;
 	
 }
 

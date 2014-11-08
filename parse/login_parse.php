@@ -13,6 +13,10 @@ if(isset($_POST['username']))
    $row = mysql_fetch_assoc($res);
    $_SESSION['uid'] = $row['id'];
    $_SESSION['username'] = $row['username'];
+   $logFile = fopen("../logs/loginLogout.txt", "a+");
+   $log = $username ." logged in at :" . date('l jS \of F Y h:i:s A') . "\n";
+   fwrite($logFile,$log);
+   fclose($logFile);
    header("Location: ../index.php");
  }
  else
@@ -21,4 +25,3 @@ if(isset($_POST['username']))
 	exit();
  }
 }
-?>

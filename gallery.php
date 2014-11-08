@@ -17,13 +17,13 @@ echo displayUserInfo();
 <div id="forum_wrapper">
 <h2> Gallery</h2>
 <style>
-
+/*
 #forum_wrapper
 {
 width:80%;
 padding-left:20%;
 }
-
+*/
 </style>
 <?php
 
@@ -58,14 +58,14 @@ $id = $_GET['galleryId'];
 	$res = mysql_query($sql) or die(mysql_error());
 	$images = '<div id="parent_image">';
 	while($row = mysql_fetch_assoc($res)){
-
 		$images .= 
 		'	<div class="child_image">
-				<a href="gallery.php?galleryId='.$row["galleryId"].'">
+			<a href="gallery.php?galleryId='.$row["galleryId"].'">
 				<img src="'.$row["image"].'"style="width:250px; height:250px;"/></a><p>'.$row['name'].'</p>
 			</div>';
 	//var_dump($row);
 	}
+	$images .= '<div style="clear:both"></div>';
 	$images .= '</div>';
 }	
 echo $images;

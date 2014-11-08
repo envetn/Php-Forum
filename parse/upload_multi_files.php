@@ -73,19 +73,10 @@ if(linux_server()){
 			$sql = "INSERT INTO galleryImages 
 			(userId,image,name,description,galleryId) VALUES ('".$id."','".$fullFilePath."','".$g_name."','".$g_description."','".$galleryId."')";
 			$res = mysql_query($sql) or die(mysql_error());
-			
-			
-			
-			
-			
-		}
-			
-			
-			
-			
-			
-			
-		}
+			header("location: ../addGallery.php");
+	
+		}			
+	}
 	
 }else{
 	die("PLEASE LOG IN TO SUBMIT PORNPICTURES");

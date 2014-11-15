@@ -22,7 +22,7 @@ function displayUserInfo(){
 			while($row = mysql_fetch_assoc($res)){
 				if($row['admin'] == 1){	
 					$HTML .= "&bull;<a href='addUser.php'> Add User </a><br/>";
-					$HTML .= "&bull;<a href='parse/clearGalleryDb_parse.php'> Clear image database </a></p>";
+					$HTML .= "&bull;<a href='parse/clear_db_parse.php'> Clear image database </a></p>";
 				}
 			}
 		}

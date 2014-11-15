@@ -5,6 +5,7 @@
 	include('config.php');
 echo displayUserInfo();
 $galleryId ="";
+
 if(isset($_POST['create'])){
 	$sql = "SELECT MAX(galleryId) AS newGalleryId FROM galleryImages";
 	$res = mysql_query($sql) or die(mysql_error());
@@ -68,7 +69,7 @@ for($i=0;$i<1;$i++){
 	</div>
 
 	<div id='rightColumnGalleryUpload'>
-		<h2>Multiple Image Upload Form</h2>
+		<h2>Multiple Image Upload Form ( 1.5mb files allowed)</h2>
 		
 		<form action="parse/upload_multi_files.php" method="post" enctype="multipart/form-data">
 		<input name='m_name' placeholder='Name' value=''></input><br/>

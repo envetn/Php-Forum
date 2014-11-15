@@ -12,9 +12,28 @@ if(isset($_SESSION['uid'])){
 		$output = shell_exec("rm -rf /home/pi/www/forum/userImg/Gallery/*");
 	}else{
 		//some command for windows 
+	//nice Php could do it by itself, no need for cmd
+		
+		$dir = '../userImg/Gallery/';
+		$it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
+		$files = new RecursiveIteratorIterator($it,
+					 RecursiveIteratorIterator::CHILD_FIRST);
+		foreach($files as $file) {
+			if ($file->getFilename() === '.' || $file->getFilename() === '..') {
+				continue;
+			}
+			if ($file->isDir()){
+				rmdir($file->getRealPath());
+			} else {
+				unlink($file->getRealPath());
+			}
+		}
+		rmdir($dir);
+	
+	
 	}
 	//header("location: ".$_SERVER['PHP_SELF']);
-	header("Location: ../index.php");
+	//header("Location: ../index.php");
 }else{
 	echo "Please login";
 	sleep(3);

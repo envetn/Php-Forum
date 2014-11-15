@@ -3,24 +3,53 @@
 //an other gallery, yes..
 //but this one I will put more effort into.
 //like commenting,uploading or just scrolling though
-
-
-?>
-<?php
  session_start();
 	include('header.php');
 	include_once('connect_db.php');
 	include('config.php');
 echo displayUserInfo();
+
+function showEdit()
+{
+	
+	/*
+	Inloggad som lofie, u_uid = 1
+	Om gallery med id 1 har g_uid == u_uid
+	visa edit
+	
+	
+	*/
+	if( isset($_SESSION['uid']) && (isset($_GET['galleryId']) && is_numeric($_GET['galleryId'])))
+	{
+		$uid = $_SESSION['uid'];
+		$g_uid = $_GET['galleryId'];
+		
+		$sql = "SELECT * FROM galleryImages WHERE UserId={$uid} AND galleryId={$g_uid} LIMIT 1";
+		$res = mysql_query($sql) or die(mysql_error());
+		if(mysql_num_rows($res) == 1)
+		{
+			$id = $_GET['galleryId'];
+			
+			return " - <a href='editGallery.php?id=$id'> Edit </a>" . $uid;
+		}else
+		{
+			return false;
+		}
+		}
+}
+?>
+<?php
+
 ?>
 
 <div id="forum_wrapper">
-<h2> Gallery</h2>
+<h2> Gallery <?=showEdit()?></h2>
 <style>
 
 </style>
 <?php
-
+//get user id from userImages.
+// if SESSION($uid) == userImages id, show edit
 	$images = "";
 //if isset, show single gallery
 if(isset($_GET['galleryId']) && is_numeric($_GET['galleryId'])){

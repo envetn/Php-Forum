@@ -1,26 +1,4 @@
 
-<style>
-
-a
-{
-	color:0000ff;
-}
-.cat_links
-{
-	display:block;
-	padding: 20px;
-	padding-top: 10px;
-	padding-bottom:10px;
-	border: 1px solid #000000;
-	margin-bottom:5px;
-	background-color:#cccccc;
-	color:#000000;
-}
-.cat_links:hover
-{
-	background-color: #dddddd;
-}
-</style>
 
 <?php
  session_start();
@@ -28,6 +6,11 @@ a
 	include_once('connect_db.php');
 	include('config.php');
 echo displayUserInfo();
+
+
+/*
+
+*/
 ?>
 
 <div id="forum_wrapper">
@@ -56,7 +39,7 @@ $userC ="";
 			$id = $row['id'];
 			$title = $row['category_title'];
 			$description = $row['category_description'];
-			$categories .= "<a class='cat_links' href='view_cat.php?cid=".$id."'>{$title}<font size='-1'> -- {$description}</font></a>";
+			$categories .= "<a class='cat_links' href='view_cat.php?cid=".$id."'>{$title}<font size='-1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {$description}</font></a>";
 		}
 		echo $categories;
 	}
@@ -75,3 +58,5 @@ $userC ="";
 ?>
 </div>
 
+</body>
+</html>

@@ -1,4 +1,10 @@
 
+		<style type="text/css">
+ 
+
+ 
+		</style>
+ 
 <?php
 //an other gallery, yes..
 //but this one I will put more effort into.
@@ -11,14 +17,6 @@ echo displayUserInfo();
 
 function showEdit()
 {
-	
-	/*
-	Inloggad som lofie, u_uid = 1
-	Om gallery med id 1 har g_uid == u_uid
-	visa edit
-	
-	
-	*/
 	if( isset($_SESSION['uid']) && (isset($_GET['galleryId']) && is_numeric($_GET['galleryId'])))
 	{
 		$uid = $_SESSION['uid'];
@@ -35,12 +33,10 @@ function showEdit()
 		{
 			return false;
 		}
-		}
+	}
 }
 ?>
-<?php
 
-?>
 
 <div id="forum_wrapper">
 <h2> Gallery <?=showEdit()?></h2>
@@ -52,6 +48,7 @@ function showEdit()
 // if SESSION($uid) == userImages id, show edit
 	$images = "";
 //if isset, show single gallery
+$image ="";
 if(isset($_GET['galleryId']) && is_numeric($_GET['galleryId'])){
 $id = $_GET['galleryId'];
 	//issnumeric
@@ -65,7 +62,8 @@ $id = $_GET['galleryId'];
 	while($row = mysql_fetch_assoc($res)){
 
 		$images .= '<div class="div_single_gallery">
-			<h3>'.$row['name'].'</h3><img src="'.$row["image"].'" class="single_gallery">'.$row['description'].'</div>';
+			<h3>'.$row['name'].'</h3><a href="#" class="lightbox"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
+			$image = $row['image'];
 	}
 //if not, show all galleries
 }else{
@@ -93,5 +91,14 @@ $id = $_GET['galleryId'];
 }	
 echo $images;
 
+
+
+
+
 ?>
+<a href="#" class="lightbox">Open Lightbox</a>
+	<div class="backdrop"></div>
+	<div class="box"><div class="close">x</div><img src="userImg/Gallery/1/214950_2014-08-31_00005.png" style='width:100%'/></div>
+	
+
 </div>

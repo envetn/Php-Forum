@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="style/style.css">
+
 <?php
 /*
 Some functions for the whole page
@@ -6,21 +6,24 @@ Some functions for the whole page
 */
 
 function displayUserInfo(){
-	if(!isset($_SESSION['uid'])){
+	if(!isset($_SESSION['uid']))
+	{
 		return "<div class='leftBarUser'><form action='parse/login_parse.php' method='post'>
-		Username<br/> <input type='text' name='username' /> &nbsp;<br/>
-		Password<br/> <input type='password' name='password' /><br/>
+		<label>Username<br/> <input type='text' name='username' /> </label>&nbsp;<br/>
+		<label>Password<br/> <input type='password' name='password' /></label><br/>
 		<input type='submit' name='submit' value='log in'></form><a href='index.php'> Return to index</a></div>";
-	
-	
 	}
-	else{
-		$HTML = "<div class='leftBarUser'><h3>Profile</h3><p>&bull; User: " . $_SESSION['username'] . "<br/>";
+	else
+	{/*logged in*/
+		$HTML = "<div class='leftBarUser'><h3>Profile</h3><p> User: " . $_SESSION['username'] . "<hr/><br/>";
 		$sql = "SELECT admin FROM users WHERE username = '".$_SESSION['username'] ."' LIMIT 1";
 		$res = mysql_query($sql) or die(mysql_error());
-		if(mysql_num_rows($res) > 0){
-			while($row = mysql_fetch_assoc($res)){
-				if($row['admin'] == 1){	
+		if(mysql_num_rows($res) > 0)
+		{
+			while($row = mysql_fetch_assoc($res))
+			{
+				if($row['admin'] == 1)
+				{	
 					$HTML .= "&bull;<a href='addUser.php'> Add User </a><br/>";
 					$HTML .= "&bull;<a href='parse/clear_db_parse.php'> Clear image database </a></p>";
 				}
@@ -103,11 +106,19 @@ function getUserThreads($uid){
 	JOIN topic ON topic.id = posts.topic_id
 	WHERE posts.post_creator = {$uid} ORDER BY topic.id
 	";
+	$shortText ="";
 	$res = mysql_query($sql) or die(mysql_error());
-	$userPost = "<h4> Activities</h4>";
+	$userPost = "<h2> Activities</h2>";
 	if(mysql_num_rows($res) > 0 ){
 		while($row = mysql_fetch_assoc($res)){
-			$userPost .="&nbsp;&nbsp;<a href='view_topic.php?cid={$row["category_id"]}&tid={$row["topic_id"]}'>" . $row['post_content'] . "</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" .$row['topic_title'] . "<hr /><br/>";
+		if(strlen($row['post_content']) > 20 )
+		{
+			$shortenText = substr($row['post_content'],0,20).'...';
+		}else
+		{
+			$shortenText = $row['post_content'];
+		}
+			$userPost .="<p class='getUserThreadP'><a href='view_topic.php?cid={$row["category_id"]}&tid={$row["topic_id"]}'>" . $shortenText . "</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>" .$row['topic_title'] . "</font><br/><hr class='hr_style'/><br/></p>";
 			
 			
 			

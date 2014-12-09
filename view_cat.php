@@ -9,35 +9,13 @@ a
 
 <?php
  session_start();
-include('../include/header.php');
+include('header.php');
+include_once('database.php');
 include_once('connect_db.php');
 include('config.php');
  
 echo displayUserInfo();
 ?>
-
-
-
-
-
-
-<?php
-/*
-if(!isset($_SESSION['uid']))
-{
-	echo "<div class='leftBarUser'><p> Basic login</p><form action='login_parse.php' method='post'>
-	Username<br/> <input type='text' name='username' /> &nbsp;<br/>
-	Password<br/> <input type='password' name='password' />
-	<input type='submit' name='submit' value='log in'></form></div>";
-}
-else
-{
-	
-	echo "<div class='leftBarUser'><p>Profile</br> User: " . $_SESSION['username'] . "<br/> <a href='logout_parse.php'>logout</a></div>";
-}
-*/
-?>
-
 <div id="forum_wrapper">
 <h2> </h2>
 <hr/>
@@ -78,28 +56,17 @@ else
 				$date = $row['topic_date'];
 				$creator = $row['topic_creator'];
 				
-				$maxsql = "SELECT COUNT(*) FROM posts WHERE topic_id LIKE '$tid';";
+				$maxsql = "SELECT COUNT(*) as Count FROM posts WHERE topic_id LIKE '$tid';";
 				$maxres = mysql_query($maxsql) or die(mysql_error());
-				while($maxrow = mysql_fetch_assoc($maxres)){
-					$max=$maxrow['COUNT(*)'] -1;
+				while($maxrow = mysql_fetch_assoc($maxres))
+				{
+					$max=$maxrow['Count'] -1;
 				}
 				
 				$topics .= "
 					<td > <a class='cat_threads'href='view_topic.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $creator." on ".$date."</span></a></td>";
-				
-				
 				$topics .= "<td align='center'>$max</td><td align='center'>".$views."</td>";
 				$topics .= "<tr> <td colspan='3'><hr/></td></tr>";
-				
-				/*$topics .=
-				"<tr>
-						<td valign='top' style='border: 1px solid black; padding:10px;'>  
-							<a class='cat_links'href='view_topic.php?cid=".$cid."&tid=".$tid."'>".$title."
-							<br/> 
-							<span class='post_info'> Posted by: ".$creator." on ".$date."</span></a>
-						</td>
-						<td align='center'>0</td><td align='center'>".$views."</td></tr>";
-				$topics .= "<tr> <td colspan='3'><hr/></td></tr>";*/
 			}
 			$topics .= "</table>";
 		}

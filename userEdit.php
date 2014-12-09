@@ -12,7 +12,7 @@ width:auto;
 </style>
 <?php
 session_start();
-include('../include/header.php');
+include('header.php');
 include_once('connect_db.php');
 include('config.php');
 

@@ -61,8 +61,12 @@ $id = $_GET['galleryId'];
 	$res = mysql_query($sql) or die(mysql_error());
 	while($row = mysql_fetch_assoc($res)){
 
-		$images .= '<div class="div_single_gallery">
-			<h3>'.$row['name'].'</h3><a href="#" class="lightbox"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
+		/*$images .= '<div class="div_single_gallery">
+			<h3>'.$row['name'].'</h3><a href="#3" class="lightbox"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
+			$image = $row['image'];*/
+
+			$images .= '<div class="div_single_gallery">
+			<h3>'.$row['name'].'</h3><a href="'.$row["image"].'"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
 			$image = $row['image'];
 	}
 //if not, show all galleries
@@ -96,9 +100,10 @@ echo $images;
 
 
 ?>
-<a href="#" class="lightbox">Open Lightbox</a>
+<a href="#3" class="lightbox">Open Lightbox</a>
 	<div class="backdrop"></div>
 	<div class="box"><div class="close">x</div><img src="userImg/Gallery/1/214950_2014-08-31_00005.png" style='width:100%'/></div>
+
 	
 
 </div>

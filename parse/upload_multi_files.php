@@ -11,7 +11,7 @@ if(isset($_SESSION['uid'])){
 $mb = 100000000;
 $kb = 100000;
 $message = "";
-
+require_once("ImageManipulator.php");
 if(linux_server()){
 
 	if(!is_dir("/home/pi/www/forum/userImg/Gallery/"))
@@ -44,6 +44,7 @@ if(linux_server()){
 
 	if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST")
 	{
+		
 		// Loop $_FILES to execute all files
 		/******************/
 			$sql = "SELECT MAX(galleryId) AS newGalleryId FROM galleryImages";
@@ -51,8 +52,13 @@ if(linux_server()){
 			while($row = mysql_fetch_assoc($res)){
 				$galleryId = $row['newGalleryId'] +1;
 			}
+			
+			
 		/******************/
-		foreach ($_FILES['files']['name'] as $f => $name) {     
+		$i = 0;
+		foreach ($_FILES['files']['name'] as $f => $name)
+		{   
+	
 		$message = "Error messages: </br>";
 			if ($_FILES['files']['error'][$f] == 4) {
 				$message .= "Error found on one of the files<br/>";
@@ -67,13 +73,25 @@ if(linux_server()){
 					$message .= "<br/>$name is not a valid format";
 					continue; // Skip invalid file formats
 				}
-				else{ // No error found! Move uploaded files 
-					if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.DIRECTORY_SEPARATOR.$name))
-					$count++; // Number of successfully uploaded file
+				else
+				{ // No error found! Move uploaded files 
+					$manipulator = new ImageManipulator($_FILES['files']['tmp_name'][$f]);
+					list($width,$height) = getimagesize($_FILES['files']['tmp_name'][$f]);
+					$newNamePrefix = time() . '_';
+					if($width > 1080 || $height > 950) //resize
+					{
+						$newImage = $manipulator->resample(1080, 950);
+					}
+					$destination = 'F:/test_web/Current/working/forum/userImg/Gallery/' . $_SESSION['uid'] . '/';	
+					$manipulator->save($destination . $newNamePrefix . $_FILES['files']['name'][$f]);
+				
+				
+					/*if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.DIRECTORY_SEPARATOR.$name))
+						$count++; // Number of successfully uploaded file*/
 					
 					echo "Added: " . $path .DIRECTORY_SEPARATOR. $name . "<br/>";
 					
-					$fullFilePath = "userImg/Gallery/" .$_SESSION['uid'] ."/". $name;
+					$fullFilePath = "userImg/Gallery/" .$_SESSION['uid'] ."/". $newNamePrefix . $_FILES['files']['name'][$f];
 					$g_name = $_POST['m_name'];
 					$g_description = $_POST['m_description'];
 

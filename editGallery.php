@@ -9,10 +9,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])){
 $id = $_GET['id'];
 	//issnumeric
 	//open for injection
-	$sql = "SELECT * 
+	$sql = "SELECT *
 	FROM
 		galleryImages
-	WHERE 
+	WHERE
 		galleryId = {$id}";
 	$res = mysql_query($sql) or die(mysql_error());
 	$images = "<h3> Edit </h3><form method='post' action='parse/editGallery_parse.php'><div class='div_single_gallery'>";

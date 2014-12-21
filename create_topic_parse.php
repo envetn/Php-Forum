@@ -36,8 +36,8 @@ if(isset($_POST['topic_submit']))
 		{
 			echo "The res failed";
 		}
-		
-	}	
-	
+
+	}
+
 }
 ?>

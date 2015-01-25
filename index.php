@@ -1,22 +1,4 @@
 
-<?php
-$num = 5;
-$location = 'tree';
-
-$format = 'There are %d monkeys in the %s';
-echo sprintf($format, $num, $location) . "<br/>";
-?>
-<?php
-
-$a = "binero";
-$b = "jultomte";
-$c = levenshtein($a,$b)+crc32(sprintf("%u",$b));
-$d = str_split($a.$b,4);
-$e = sha1($c.$d[2]);
-echo $e."\n" . $c . "<br/>" . "5D41402ABC4B2A76B9719D911017C592" ;
-var_dump($d);
-?>
-
 
 <?php
  session_start();
@@ -32,7 +14,6 @@ echo displayUserInfo();
 ?>
 
 <div id="forum_wrapper">
-<h2> Forum of forums</h2>
 <!--<a href='search.php'>Search </a>-->
 <?php
 include("search.php");

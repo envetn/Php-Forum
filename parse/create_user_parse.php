@@ -6,7 +6,10 @@ if(isset($_POST['user_submit']))
 	$username = $_POST['user_name'];
 	$password = md5($_POST['user_password']);
 	$email = $_POST['user_email'];
-	$email_notify = $_POST['email_notify'];
+	if(isset($_POST['email_notify']))
+		$email_notify = $_POST['email_notify'] ;
+	else
+		$email_notify = 0;
 	
 	if( ( strpos($email, '@') == true) )//&& strpos($email, '.com') === true))
 	{
@@ -28,6 +31,7 @@ if(isset($_POST['user_submit']))
 }
 else
 {
+echo "hallo";
 	exit();
 }
 

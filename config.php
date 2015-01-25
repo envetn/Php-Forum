@@ -11,7 +11,7 @@ function displayUserInfo(){
 		return "<div class='leftBarUser'><form action='parse/login_parse.php' method='post'>
 		<label>Username<br/> <input type='text' name='username' /> </label>&nbsp;<br/>
 		<label>Password<br/> <input type='password' name='password' /></label><br/>
-		<input type='submit' name='submit' value='log in'></form><a href='index.php'> Return to index</a></div>";
+		<input type='submit' name='submit' value='log in'></form><a href='index.php'> Return to index</a><br/><a href='addUser.php'>Create new user</a></div>";
 	}
 	else
 	{/*logged in*/

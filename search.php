@@ -21,7 +21,7 @@ if(isset($_GET['Submit']) && isset($_GET['q1'])){
 ?>
 
 <form method='get'>
-<p> Search: <input type='text' name='searchValue' value='<?=$searchVal?>'/>
+<p> <input type='text' name='searchValue' value='<?=$searchVal?>'/>
 <input type='submit' name='Submit' value='Search'></p>
 <p> Greedy search :<input type='radio' name="q1" value="1">Yes<input TYPE="radio" name="q1" value="0">No</p>
 

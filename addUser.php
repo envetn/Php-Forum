@@ -1,35 +1,42 @@
 <style>
-#forum_wrapper
-{
- width:800px;
- margin-left:auto;
- margin-right:auto;
-}
 
 </style>
 <?php
 
-include('../include/header.php');
-
+session_start();
+	include('header.php');
+	include_once('connect_db.php');
+	include('config.php');
+echo displayUserInfo();
 
 
 
 ?>
 <div id="forum_wrapper">
-<h2> Forum - reply post</h2>
-<p> Basic login</p>
-	<div id="content">
-	<form action="parse/create_user_parse.php" method="post">
-	<p>username</p>
-	<input type='text' name='user_name' size='28' maxlength='150'/>
-	<p>password</p>
-	<input type='text' name='user_password' size='28' maxlength='150'/>
-	<p>Email</p>
-	<input type='text' name='user_email' size='28' maxlength='150'/><br/>
-	<input type="radio" name="email_notify" value="Yes">Yes<br/>
-	<input type="radio" name="email_notify" value="No">No<br/>
-	
-	
-	<input type='submit' name='user_submit' value='Create user' />
-	</div>
+<h2> Forum - Create user</h2>
+		
+  <form action="parse/create_user_parse.php" method="post">
+	<table>
+       <tr>
+          <td><label> Username </label></td>
+          <td><input type='text' name='user_name' size='28' maxlength='150'/></td>
+        </tr>
+        <tr>
+            <td><label> Password </label></td>
+            <td> <input type='password' name='user_password' size='28' maxlength='150'/></td>
+        </tr>
+		<tr>
+			<td><label>E-mail </label></td>
+			<td><input type='text' name='user_email' size='28' maxlength='150'/></td>
+		</tr>
+		<tr>
+			<td><label>notification </label></td>
+			<td><input type="radio" name="email_notify" value="Yes">Yes</td>
+			<td><input type="radio" name="email_notify" value="No">No</td>
+		<tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="submit" name='user_submit'/></td>
+        </tr>
+    </table>
+  </form>
 </div>

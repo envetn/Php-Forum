@@ -99,19 +99,25 @@ include("search.php");
 					$sql21 = "SELECT * FROM users WHERE id='".$row2['post_creator']."'";
 					$res21 = mysql_query($sql21) or die(mysql_error());
 					
-					while($row21 = mysql_fetch_assoc($res21)){
-					$img = $row21['avatar']; $name = $row21['username']; 
+					while($row21 = mysql_fetch_assoc($res21))
+					{
+						$img = $row21['avatar']; $name = $row21['username']; 
+						
 					}
-					if($row['topic_creator'] == $row2['post_creator']){ 
+					if($row['topic_creator'] == $row2['post_creator'])
+					{ 
 						echo "<tr>
 						<td valign='top' style='border: 1px solid black;'> 
 						<div style='min-height:200px; '><div class='OP_feild'>".$row['topic_title'] ."<br/> By ".$name." - ".$row2['post_date']." - Creator (OP)<hr/></div>".$row2['post_content']."</div></td>";	
-					}else{
+					}
+					else
+					{
 						echo "<tr>
 						<td valign='top' style='border: 1px solid black;'> 
 						<div style='min-height:200px;'><div class='normal_field'> By ".$name." - ".$row2['post_date']."<hr/></div>".$row2['post_content']."</div></td>";	
 					}
-					echo "<td width='200' valign='top' align='center' style='border:1px solid black;'>User Info Here <img src='".$img."' width='180' height='120'/></td></tr><tr> <td colspan='2'><hr/></td></tr>";
+					
+					echo "<td width='200' valign='top' align='center' style='border:1px solid black;'>User: <a href='userEdit.php?name=".$name."'>".$name."</a><img src='".$img."' width='180' height='120'/></td></tr><tr> <td colspan='2'><hr/></td></tr>";
 				}
 				$old_views = $row['topic_views'];
 				$new_views = $old_views + 1;

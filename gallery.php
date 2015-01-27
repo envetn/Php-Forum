@@ -55,16 +55,21 @@ $id = $_GET['galleryId'];
 	WHERE 
 		galleryId = {$id}";
 	$res = mysql_query($sql) or die(mysql_error());
-	while($row = mysql_fetch_assoc($res)){
-
+	$images .= '<div class="div_single_gallery">';
+	$i = 0;
+	while($row = mysql_fetch_assoc($res))
+	{
+		if($i == 0)
+			$images .= '<h3>'.$row['name'].'</h3>';
 		/*$images .= '<div class="div_single_gallery">
 			<h3>'.$row['name'].'</h3><a href="#3" class="lightbox"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
 			$image = $row['image'];*/
 
-			$images .= '<div class="div_single_gallery">
-			<h3>'.$row['name'].'</h3><a href="'.$row["image"].'"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'].'</div>';
+			$images .= '<a href="'.$row["image"].'"><img src="'.$row["image"].'" class="single_gallery"></a>'.$row['description'];
 			$image = $row['image'];
+			$i ++;
 	}
+	$images .= '</div>';
 //if not, show all galleries
 }else{
 

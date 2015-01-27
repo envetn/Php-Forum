@@ -10,15 +10,15 @@ $i = 0;
 	while(isset($_POST['id'.$i]))
 	{
 		 $id = mysql_real_escape_string($_POST['id'.$i]);
+		 $name = mysql_real_escape_string($_POST['name']);
 		 $image = mysql_real_escape_string($_POST['img'.$i]);
 		 $description = mysql_real_escape_string($_POST['description'.$i]);
 		$i ++;
-		$sql = "UPDATE galleryImages SET image='$image' , description='$description' WHERE id='$id'";
+		$sql = "UPDATE galleryImages SET name='$name' ,image='$image' , description='$description' WHERE id='$id'";
 		mysql_query($sql) or die(mysql_error());
 	}
 	
-	header("Location: ../editGallery.php?id=".$_SESSION['uid']
-	);
+	header("Location: ../gallery.php");
 
 }
 ?>

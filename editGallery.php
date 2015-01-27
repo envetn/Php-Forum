@@ -5,7 +5,8 @@
 	include('config.php');
 echo displayUserInfo();
 	$images = "";
-if(isset($_GET['id']) && is_numeric($_GET['id'])){
+if(isset($_GET['id']) && is_numeric($_GET['id']))
+{
 $id = $_GET['id'];
 	//issnumeric
 	//open for injection
@@ -17,6 +18,7 @@ $id = $_GET['id'];
 	$res = mysql_query($sql) or die(mysql_error());
 	$images = "<h3> Edit </h3><form method='post' action='parse/editGallery_parse.php'><div class='div_single_gallery'>";
 	$i = 0;
+	$images .= '<label>Name of gallery: </label><input style="width:300px;"name="name" value=""></input>';
 	while($row = mysql_fetch_assoc($res))
 	{
 

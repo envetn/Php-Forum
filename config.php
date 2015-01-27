@@ -126,6 +126,21 @@ function getUserThreads($uid){
 	}
 	return $userPost;
 }
+function getUserGalleries($uid)
+{
+	$gallery = "<h4> Gallery</h4>";
+	$sql = "SELECT * FROM galleryimages 
+		WHERE UserId='{$uid}'
+		GROUP BY galleryId";
+	$res = mysql_query($sql) or die(mysql_error());
+	
+	while($row = mysql_fetch_assoc($res))
+	{
+	
+		$gallery .="<p class='getUserThreadP'> <a href='gallery.php?galleryId={$row["galleryId"]}'>{$row["name"]} ...</a></p>";
+	}
+	return $gallery;
+}
 /*
 
 users ON users.id = posts.post_creator 

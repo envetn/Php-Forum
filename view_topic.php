@@ -1,23 +1,14 @@
-<style>
 
-a
-{
-	color:0000ff;
-}
-
-
-
-</style>
 
 <?php
  session_start();
 include('header.php');
 include_once('connect_db.php');
 include('config.php');
-
 echo displayUserInfo();
 
 
+//pre variables
 $cid = $_GET['cid'] ? $_GET['cid'] : 0;
 $tid = $_GET['tid'];
 $page_rows = 4;
@@ -26,7 +17,8 @@ $next = "";
 $max ="";
 $maxsql = "SELECT COUNT(*) FROM posts WHERE topic_id=$tid;";
 $maxres = mysql_query($maxsql) or die(mysql_error());
-while($maxrow = mysql_fetch_assoc($maxres)){
+while($maxrow = mysql_fetch_assoc($maxres))
+{
 	$max=$maxrow['COUNT(*)'];
 }
 $lastPage = floor($max/10); // round down
@@ -49,20 +41,23 @@ if($page >= $max){
 $previous = $page-1;
 
 
-echo "<a href='view_cat.php?cid={$_GET['cid']}'>back to Categori </a>";
+
 ?>
 
 
 <div id="forum_wrapper">
-<h2> Forum topic</h2>
+<hr/>
+
 
 <?php
-
+include("search.php");
 
 ?>
 <hr/>
 
 	<div id="content">
+	<h2> Forum topic</h2>
+	<a href='view_cat.php?cid={$_GET['cid']}'>back to Categori </a>
 	<?php
 	$paging = "";
 	

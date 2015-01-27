@@ -1,11 +1,4 @@
-<style>
-a
-{
-	color:0000ff;
-}
 
-
-</style>
 
 <?php
  session_start();
@@ -17,30 +10,35 @@ include('config.php');
 echo displayUserInfo();
 ?>
 <div id="forum_wrapper">
-<h2> </h2>
 <hr/>
-
-	<div id="content">
-	<?php
+<?php
+	/*should be global for forum part*/
+	include("search.php");
+	echo '<div id="content"><hr/>';
+	
 		include_once("connect_db.php");
 		$cid = $_GET['cid'];
-		if(isset($_SESSION['uid'])){
+		if(isset($_SESSION['uid']))
+		{
 			$logged = " | <a href='create_topic.php?cid={$cid}'><button> Create a topic </button></a>";
 		}
 		else{
-			$logged = " | Please login";
+			$logged = " ";//| Please login to comment";
 		}
 	$sql = "SELECT * FROM categories WHERE id='".$cid."'LIMIT 1";
 	$res = mysql_query($sql) or die(mysql_error());
-	while($row = mysql_fetch_assoc($res)){
+	while($row = mysql_fetch_assoc($res))
+	{
 		echo "<h2> Forum categori - " . $row['category_title'] . "</h2>";
 	}
 
 		//if there exists a category
-	if(mysql_num_rows($res) == 1){
+	if(mysql_num_rows($res) == 1)
+	{
 		$sql2 = "SELECT * FROM topic WHERE category_id='".$cid."' ORDER BY topic_replay_date DESC";
 		$res2 = mysql_query($sql2) or die(mysql_error());
-		if(mysql_num_rows($res2) > 0){
+		if(mysql_num_rows($res2) > 0)
+		{
 		
 			$topics  = "<table width='100%' style='border-collapse:collapse;'>";
 			$topics .= "<tr><td colspan='3'><a href='index.php'><button> Return to index</button></a>".$logged."<br/></td></tr>";
@@ -48,7 +46,8 @@ echo displayUserInfo();
 			$topics .= "<tr><td colspan='3'><hr/></td></tr>";
 			
 		
-			while($row = mysql_fetch_assoc($res2)){
+			while($row = mysql_fetch_assoc($res2))
+			{
 			
 				$tid = $row['id'];
 				$title = $row['topic_title'];
@@ -81,7 +80,8 @@ echo displayUserInfo();
 		echo "<a href='index.php'> Return to index </a><br/>";
 		echo "<p> You are trying to watch a cat that does not exists</p>";
 	}
-	if(isset($topics)){
+	if(isset($topics))
+	{
 		echo $topics;
 	}
 	?>

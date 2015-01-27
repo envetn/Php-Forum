@@ -9,6 +9,7 @@ padding-left:20%;
 font-size:20px;
 }
 </style>
+
 <?php
 
 $searchVal = "";
@@ -31,4 +32,5 @@ if(isset($_GET['Submit']) && isset($_GET['q1'])){
 	echo $returnVal;
 }
 ?>
+
 </div>

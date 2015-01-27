@@ -1,9 +1,4 @@
 
-		<style type="text/css">
- 
-
- 
-		</style>
  
 <?php
 //an other gallery, yes..
@@ -28,7 +23,7 @@ function showEdit()
 		{
 			$id = $_GET['galleryId'];
 			
-			return " - <a href='editGallery.php?id=$id'> Edit </a>" . $uid;
+			return " - <a href='editGallery.php?id=$id'> Edit </a>";
 		}else
 		{
 			return false;
@@ -39,6 +34,7 @@ function showEdit()
 
 
 <div id="forum_wrapper">
+<hr/>
 <h2> Gallery <?=showEdit()?></h2>
 <style>
 

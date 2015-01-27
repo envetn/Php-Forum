@@ -29,10 +29,15 @@ html,body{
 margin:0;
 padding:0;
 
+
+}
+body 
+{ 
+	overflow-y: scroll; /*shadow scrollbar*/
 }
 input{
-margin:2px;
-width:auto;
+	margin:2px;
+	width:auto;
 }
 
 
@@ -72,7 +77,8 @@ width:auto;
 input[type=submit]
 {
 	margin-top:20px;
-	padding:4px; border:2px solid #ccc; 
+	padding:4px; 
+	border:2px solid #ccc; 
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	font-size:15px;
@@ -80,6 +86,7 @@ input[type=submit]
 input[type=submit]:hover
 {
 	#background-color:#A100A1;
+	border:2px dotted  #ccf;
 }
 
 #forum_wrapper
@@ -113,7 +120,7 @@ height:2%;
 background:#001;
 font-size:30px;
 margin:0px 0px 20px 0px;
-padding:20px 20px 40px 20px;
+padding:20px 20px 20px 20px;
 
 width:97%;
 
@@ -139,6 +146,10 @@ color:3B8DBD;
 	color:3B8DBD;
 }
 
+a
+{
+	text-decoration:none;
+}
 /*END OF STYLE FOR header.php*/
 
 /*#############################################*/

@@ -14,13 +14,11 @@ echo displayUserInfo();
 ?>
 
 <div id="forum_wrapper">
+<hr/>
 <!--<a href='search.php'>Search </a>-->
 <?php
 include("search.php");
 $userC ="";
-
-
-
 ?>
 <hr/>
 

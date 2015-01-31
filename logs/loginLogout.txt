@@ -81,3 +81,5 @@ Olof logged out in at :Saturday 31st of January 2015 12:51:39 PM
 123 logged in at :Saturday 31st of January 2015 12:52:13 PM
 123 logged out in at :Saturday 31st of January 2015 12:55:52 PM
 2222 logged in at :Saturday 31st of January 2015 01:02:57 PM
+2222 logged out in at :Saturday 31st of January 2015 07:51:58 PM
+Olof logged in at :Saturday 31st of January 2015 07:52:02 PM

@@ -5,6 +5,8 @@ include("../database.php");
 include("../config.php");
 $db = new Database($GLOBAL['database']);
 echo displayUserInfo($db);
+
+
 if(($_SESSION['uid'] == "") )
 {
 	header("Location: ../index.php");
@@ -13,15 +15,18 @@ if(($_SESSION['uid'] == "") )
 
 if(isset($_POST['topic_submit']))
 {
+	
+	
 	if(($_POST['topic_title'] == "") && ($_POST['topic_content'] == ""))
 	{
 		echo "You did not fill in all field";
+		header("Location: ../view_topic.php");
 		exit();
 	}
 	else
 	{
 		
-		$cid = $_POST['cid'];
+		$cid = is_numeric($_POST['cid']) ? $_POST['cid'] : 0 ;
 		$title = $_POST['topic_title'];
 		$content = $_POST['topic_content'];
 		$creator = $_SESSION['uid'];
@@ -45,6 +50,7 @@ if(isset($_POST['topic_submit']))
 			echo "The res failed";
 		}
 	*/
+	header("Location: ../view_topic.php?cid".$cid."&tid=".$new_topic_id);
 	}	
 	
 }

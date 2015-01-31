@@ -11,7 +11,7 @@ echo displayUserInfo($db);
 
 
 //pre variables
-$cid = is_numeric($_GET['cid']) ? $_GET['cid'] : 0 ;;
+$cid = is_numeric($_GET['cid']) ? $_GET['cid'] : 0 ;
 $tid = is_numeric($_GET['tid']) ? $_GET['tid'] : 0 ;
 $page_rows = 4;
 $last = "";

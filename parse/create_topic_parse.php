@@ -10,8 +10,8 @@ echo displayUserInfo($db);
 if(($_SESSION['uid'] == "") )
 {
 	header("Location: ../index.php");
-	exit();
 }
+	exit();
 
 if(isset($_POST['topic_submit']))
 {

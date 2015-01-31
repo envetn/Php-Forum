@@ -1,11 +1,20 @@
 
 <?php
+/*GLOBAL VARIABLES*/
+$GLOBAL['database']['dsn']            = 'mysql:host=localhost;dbname=forum;'; 
+$GLOBAL['database']['username']		= 'root'; // still using default settings
+$GLOBAL['database']['password']		= ''; //blank for now, change it later on
+$GLOBAL['database']['driver_option']	= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");
+
+
+
+
 /*
 Some functions for the whole page
 
 */
 
-function displayUserInfo(){
+function displayUserInfo($db){
 	if(!isset($_SESSION['uid']))
 	{
 		return "<div class='leftBarUser'><form action='parse/login_parse.php' method='post'>
@@ -17,12 +26,12 @@ function displayUserInfo(){
 	{/*logged in*/
 		$HTML = "<div class='leftBarUser'><h3>Profile</h3><p> User: " . $_SESSION['username'] . "<hr/><br/>";
 		$sql = "SELECT admin FROM users WHERE username = '".$_SESSION['username'] ."' LIMIT 1";
-		$res = mysql_query($sql) or die(mysql_error());
-		if(mysql_num_rows($res) > 0)
+		$res = $db->queryAndFetch($sql);
+		if($db->RowCount() > 0)
 		{
-			while($row = mysql_fetch_assoc($res))
+			foreach($res as $row )
 			{
-				if($row['admin'] == 1)
+				if($row->admin == 1)
 				{	
 					$HTML .= "&bull;<a href='addUser.php'> Add User </a><br/>";
 					$HTML .= "&bull;<a href='parse/clear_db_parse.php'> Clear image database </a></p>";
@@ -152,28 +161,34 @@ FROM table1 INNER JOIN table2 ON
      table3 ON table1.primaryKey=table3.table1Id
 */
 
-function searchPost($searchVal = "asd", $greedy=1){
+function searchPost($searchVal, $greedy=1,$db){
 /*
 	posts.topic_id -> topic.id
 	and
 	post_post_creator -> users.id
 */
-	$returnVal = "";
+		$returnVal = "";
 	$sql = "SELECT * FROM posts
 		INNER JOIN topic  
 		ON posts.topic_id = topic.id
 			INNER JOIN 
 			users ON posts.post_creator = users.id
 	WHERE posts.post_content LIKE ";
-	if($greedy == 1){
+	if($greedy == 1)
+	{
 		$sql .= "'%".$searchVal."%'";
-	}else{
+	}else
+	{
 		$sql .= "'". $searchVal."'";
 	}
-	$res = mysql_query($sql) or die(mysql_error());
-	if(mysql_num_rows($res) > 0 ){
-		while($row = mysql_fetch_assoc($res)){
-			$returnVal .="<span class='staticValResult'>Content: </span>". $row['post_content']."&nbsp;&nbsp;--&nbsp;&nbsp; <span class='staticValResult'>Topic:</span> " . $row['topic_title'] ."&nbsp;&nbsp;--&nbsp;&nbsp;<span class='staticValResult'>Auther:</span>  ".$row['username'] ."<br/>";
+	$res = $db->queryAndFetch($sql);
+	
+	if($db->RowCount() > 0)
+	{
+		foreach($res as $row )
+		{
+		//todo: Link result to posts
+			$returnVal .="<span class='staticValResult'>Content: </span>". $row->post_content."&nbsp;&nbsp;--&nbsp;&nbsp; <span class='staticValResult'>Topic:</span> " . $row->topic_title."&nbsp;&nbsp;--&nbsp;&nbsp;<span class='staticValResult'>Auther:</span>  ".$row->username ."<br/>";
 		}
 	}
 	return $returnVal;

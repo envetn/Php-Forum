@@ -3,7 +3,9 @@ session_start();
 	include('header.php');
 	include_once('connect_db.php');
 	include('config.php');
-echo displayUserInfo();
+		include("database.php");
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 
 if((!isset($_SESSION['uid'])) || ($_GET['cid'] =="" ))
 {
@@ -46,7 +48,7 @@ a
 
 <div id="forum_wrapper">
 <h2> Forum - create topic</h2>
-<p> Basic login</p>
+
 <?php
 echo "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='parse/logout_parse.php'>logout</a>";
 

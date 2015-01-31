@@ -7,7 +7,11 @@ session_start();
 	include('header.php');
 	include_once('connect_db.php');
 	include('config.php');
-echo displayUserInfo();
+		include("database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
+
 
 
 
@@ -28,6 +32,10 @@ echo displayUserInfo();
 		<tr>
 			<td><label>E-mail </label></td>
 			<td><input type='text' name='user_email' size='28' maxlength='150'/></td>
+		</tr>
+		<tr>
+			<td><label>Image </label></td>
+			<td><input type='text' name='user_Image' size='28' maxlength='150'/></td>
 		</tr>
 		<tr>
 			<td><label>notification </label></td>

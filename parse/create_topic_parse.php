@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+include("../database.php");
+include("../config.php");
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 if(($_SESSION['uid'] == "") )
 {
 	header("Location: ../index.php");
@@ -16,19 +20,23 @@ if(isset($_POST['topic_submit']))
 	}
 	else
 	{
-		include_once("../connect_db.php");
+		
 		$cid = $_POST['cid'];
 		$title = $_POST['topic_title'];
 		$content = $_POST['topic_content'];
 		$creator = $_SESSION['uid'];
-		$sql = "INSERT INTO topic (category_id, topic_title,topic_creator, topic_date,topic_replay_date,topic_content) VALUES('".$cid."','".$title."','".$creator."',now(), now(),'".$content."')";
-		$res = mysql_query($sql) or die(mysql_error());
-		$new_topic_id = mysql_insert_id();
-		$sql2 = "INSERT INTO posts (category_id, topic_id, post_creator, post_content, post_date) VALUES ('".$cid."','".$new_topic_id."','".$creator."','".$content."',now())";
-		$res2 = mysql_query($sql2) or die(mysql_erro());
+		$sql = "INSERT INTO topic (category_id, topic_title,topic_creator, topic_date,topic_replay_date,topic_content) VALUES(?,?,?,now(), now(),?)";
+		$params = array($cid,$title,$creator,$content);
+		$db->queryAndFetch($sql,$params);
+		
+		$new_topic_id = $db->lastInsertId();
+		$sql2 = "INSERT INTO posts (category_id, topic_id, post_creator, post_content, post_date) VALUES (?,?,?,?,now())";
+		$params = array($cid,$new_topic_id,$creator,$content);
+		$db->queryAndFetch($sql2,$params);
+			
 		$sql3 = "UPDATE categories SET last_post_date=now(), last_user_posted='".$creator."' WHERE id='".$cid."' LIMIT 1";
-		$res3 = mysql_query($sql3) or die(mysql_error());
-		if( ($res) && ($res2) && ($res3) )
+		$db->queryAndFetch($sql3);
+	/*	if( ($res) && ($res2) && ($res3) )
 		{
 			header("Location: ../view_topic.php?cid".$cid."&tid=".$new_topic_id);
 		}
@@ -36,7 +44,7 @@ if(isset($_POST['topic_submit']))
 		{
 			echo "The res failed";
 		}
-		
+	*/
 	}	
 	
 }

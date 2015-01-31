@@ -1,4 +1,4 @@
-
+@import url("forumForms.css");
 
 /*userEdit*/
 #getUserEditForm{
@@ -154,53 +154,8 @@ a
 
 /*#############################################*/
 
-/* view_topic and view_cat style*/
-
-.OP_feild{
-background:green;
--moz-border-radius-bottomright: 25px 50px;
-border-bottom-right-radius: 25px 50px;
-}
-.normal_field{
-background:#FF8533;
--moz-border-radius-bottomright: 25px 50px;
-border-bottom-right-radius: 25px 50px;
-}
-.pagin{
-float:right;
-margin-right:10;
-
-font-size:1.5em;
-}
-
-.cat_threads
-{
-	display:block;
-	padding: 5px;
-	padding-top: 10px;
-	padding-bottom:10px;
-
-	margin-bottom:5px;
-	background-color:#cccccc;
-	color:#000000;
-}
-.cat_threads:hover
-{
-	background-color: #dddddd;
-}
-button{
-padding:2px;
-font-size:16px;
-}
 
 
-
-
-
-
-
-
-/*END OF view_topic and view_cat STYLE*/
 
 /*SPEC FOR INDEX, WHY? I DONT KNOW*/
 

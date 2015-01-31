@@ -5,8 +5,10 @@
 	include('header.php');
 	include_once('connect_db.php');
 	include('config.php');
-echo displayUserInfo();
+	include("database.php");
 
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 
 /*
 
@@ -24,34 +26,26 @@ $userC ="";
 
 <div id="content">
 <?php
-	include_once("connect_db.php");
-	$sql = "SELECT * FROM	categories ORDER BY category_title ASC;";
-	$res = mysql_query($sql) or die(mysql_error());
+	
+	$sql = "SELECT * FROM categories ORDER BY category_title ASC;";
+	$res = $db->queryAndFetch($sql);
 	$categories = "";
-	if(mysql_num_rows($res) > 0)
+	if($db->RowCount() > 0)
 	{
-		while($row = mysql_fetch_assoc($res))
+
+		foreach($res as $row )
 		{
-		
-			$id = $row['id'];
-			$title = $row['category_title'];
-			$description = $row['category_description'];
+			$id = $row->id;
+			$title = $row->category_title;
+			$description = $row->category_description;
 			$categories .= "<a class='cat_links' href='view_cat.php?cid=".$id."'>{$title}<font size='-1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {$description}</font></a>";
 		}
 		echo $categories;
 	}
 	else
 	{
-		echo "<p>No categories avaliable</p>";
+		echo "No category avaliable";
 	}
-	
-	echo $userC;
-	
-	$widthYes = 22;
-	$widthNo = 2;
-	$widthDo = 32;
-	$score = 200;
-	$i = 2;
 ?>
 </div>
 

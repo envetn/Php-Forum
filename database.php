@@ -30,20 +30,24 @@ class Database{
      
     } 
      
-    public function queryAndFetch($query, $params=array(),$debug=false) { 
+    public function queryAndFetch($query, $params=array(),$debug=false)
+	{ 
   
-    self::$queries[] = $query;  
-    self::$params[]  = $params;  
-    self::$numQueries++; 
-  
-    if($debug) { 
-      echo "<p>Query = <br/><pre>{$query}</pre></p><p>Num query = " . self::$numQueries . "</p><p><pre>".print_r($params, 1)."</pre></p>"; 
-    } 
-  
-    $this->stmt = $this->db->prepare($query); 
-    $this->stmt->execute($params); 
-    return $this->stmt->fetchAll(); 
-  } 
+		self::$queries[] = $query;  
+		self::$params[]  = $params;  
+		self::$numQueries++; 
+	  
+		if($debug)
+		{ 
+		  echo "<p>Query = <br/><pre>{$query}</pre></p><p>Num query = " . self::$numQueries . "</p><p><pre>".print_r($params, 1)."</pre></p>"; 
+		} 
+	  
+		$this->stmt = $this->db->prepare($query); 
+		
+		$this->stmt->execute($params); 
+		
+		return $this->stmt->fetchAll(); 
+	} 
    
     /** 
    * Get a html representation of all queries made, for debugging and analysing purpose. 
@@ -109,6 +113,10 @@ class Database{
   public function RowCount() { 
     return is_null($this->stmt) ? $this->stmt : $this->stmt->rowCount(); 
   } 
+  public function getLastInsertedId()
+  {
+	return $this->stmt->lastInsertId();
+  }
 } 
 
 

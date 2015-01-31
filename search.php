@@ -13,10 +13,11 @@ font-size:20px;
 <?php
 
 $searchVal = "";
-if(isset($_GET['Submit']) && isset($_GET['q1'])){
+if(isset($_GET['Submit']) && isset($_GET['q1']))
+{
 	$searchVal = $_GET['searchValue'];
 	$greedy = $_GET['q1'];
-	$returnVal = searchPost($searchVal,$greedy);
+	$returnVal = searchPost($searchVal,$greedy,$db);
 
 }
 ?>
@@ -28,9 +29,14 @@ if(isset($_GET['Submit']) && isset($_GET['q1'])){
 
 </form> 
 <div id='returnForm'>
-<?php if(isset($returnVal)){
+<?php if(isset($returnVal))
+{
 	echo $returnVal;
 }
 ?>
 
 </div>
+
+<?php
+
+

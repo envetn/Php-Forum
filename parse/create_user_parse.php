@@ -1,6 +1,10 @@
 <?php
 session_start();
-include_once("../connect_db.php");
+include_once("../config.php");
+		include("../database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 if(isset($_POST['user_submit']))
 {
 	$username = $_POST['user_name'];
@@ -10,12 +14,15 @@ if(isset($_POST['user_submit']))
 		$email_notify = $_POST['email_notify'] ;
 	else
 		$email_notify = 0;
-	
+	$img = /*isset($_POST['user_Image']) ? $_POST['user_Image'] :*/ "userImg/default.jpg";
+	$now = date('Y-m-d H:i:s');
+
 	if( ( strpos($email, '@') == true) )//&& strpos($email, '.com') === true))
 	{
 		//if user is going to be admin, change that in phpmyadmin
-		$sql = "INSERT INTO users(username,password,email,Registered) VALUES('".$username."','".$password ."','".$email."',now())";
-		$res = mysql_query($sql) or die(mysql_error());
+		$sql = "INSERT INTO users(username,password,email,Registered, avatar) VALUES(?,?,?,?,?)";
+		$params = array($username,$password,$email,$now,$img);
+		$res = $db->queryAndFetch($sql,$params,true);
 		
 		if ($res)
 			{

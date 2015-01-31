@@ -2,7 +2,12 @@
 	include('header.php');
 	include_once('connect_db.php');
 	include('config.php');
-echo displayUserInfo();
+	
+include("database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
+
 ?>
 <?php 
 if((!isset($_SESSION['uid'])) || ($_GET['cid'] =="" ))

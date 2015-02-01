@@ -14,7 +14,8 @@ Some functions for the whole page
 
 */
 
-function displayUserInfo($db){
+function displayUserInfo($db)
+{
 	if(!isset($_SESSION['uid']))
 	{
 		return "<div class='leftBarUser'><form action='parse/login_parse.php' method='post'>
@@ -63,17 +64,21 @@ function getUserTable($uid){
 	return $userTable;
 }
 
-function getUserEdit($uid){
-	$sql = "SELECT * FROM users WHERE id = {$uid} LIMIT 1;";
-	$res = mysql_query($sql) or die(mysql_error());
-	if(mysql_num_rows($res) > 0){
+function getUserEdit($uid,$db)
+{
+	$sql = "SELECT * FROM users WHERE id=? LIMIT 1;";
+	$params = array($uid);
+	$res = $db->queryAndFetch($sql,$params);
+	if($db->RowCount() > 0)
+	{
 		$userTable = "<FORM method='post' id='getUserEditForm'>";
-		while($row = mysql_fetch_assoc($res)){
-			$username = $row['username'];
-			$email = $row['email'];
-			$avatar  =$row['avatar'];
-			$Forum_notify = $row['forum_notify'];
-			$passwd = $row['password'];
+		foreach($res as $row )
+		{
+			$username	  = $row->username;
+			$email 		  =	$row->email;
+			$avatar  	  = $row->avatar;
+			$Forum_notify = $row->forum_notify;
+			$passwd 	  = $row->password;
 			/*$passwd = md5($passwd);*/
 			$userTable .= 
 			"<div style='width:800px; '>"
@@ -105,7 +110,8 @@ function getUserNameFromUid($uid)
 
 
 }
-function getUserThreads($uid){
+function getUserThreads($uid,$db)
+{
 	//$sql = "SELECT * FROM posts WHERE post_creator = {$uid}";
 	
 	
@@ -113,40 +119,44 @@ function getUserThreads($uid){
 	$sql = "SELECT * 
 	FROM posts 
 	JOIN topic ON topic.id = posts.topic_id
-	WHERE posts.post_creator = {$uid} ORDER BY topic.id
+	WHERE posts.post_creator = ? ORDER BY topic.id
 	";
+	$params = array($uid);
 	$shortText ="";
-	$res = mysql_query($sql) or die(mysql_error());
+	
+	$res = $db->queryAndFetch($sql,$params);
 	$userPost = "<h2> Activities</h2>";
-	if(mysql_num_rows($res) > 0 ){
-		while($row = mysql_fetch_assoc($res)){
-		if(strlen($row['post_content']) > 20 )
+	if($db->RowCount() > 0)
+	{
+		foreach($res as $row )
 		{
-			$shortenText = substr($row['post_content'],0,20).'...';
-		}else
-		{
-			$shortenText = $row['post_content'];
-		}
-			$userPost .="<p class='getUserThreadP'><a href='view_topic.php?cid={$row["category_id"]}&tid={$row["topic_id"]}'>" . $shortenText . "</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>" .$row['topic_title'] . "</font><br/><hr class='hr_style'/><br/></p>";
-			
-			
+			if(strlen($row->post_content) > 20 )
+			{
+				$shortenText = substr($row->post_content,0,20).'...';
+			}else
+			{
+				$shortenText = $row->post_content;
+			}
+				$userPost .="<p class='getUserThreadP'><a href='view_topic.php?cid=".$row->category_id."&tid=".$row->topic_id."'>" . $shortenText . "</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font>" .$row->topic_title . "</font><br/><hr class='hr_style'/><br/></p>";
+				
+				
 			
 		}
 	}
 	return $userPost;
 }
-function getUserGalleries($uid)
+function getUserGalleries($uid,$db)
 {
 	$gallery = "<h4> Gallery</h4>";
 	$sql = "SELECT * FROM galleryimages 
-		WHERE UserId='{$uid}'
+		WHERE UserId=?
 		GROUP BY galleryId";
-	$res = mysql_query($sql) or die(mysql_error());
-	
-	while($row = mysql_fetch_assoc($res))
+	$params = array($uid);
+	$res = $db->queryAndFetch($sql,$params);
+	foreach($res as $row )
 	{
 	
-		$gallery .="<p class='getUserThreadP'> <a href='gallery.php?galleryId={$row["galleryId"]}'>{$row["name"]} ...</a></p>";
+		$gallery .="<p class='getUserThreadP'> <a href='gallery.php?galleryId={$row->galleryId}'>{$row->name} ...</a></p>";
 	}
 	return $gallery;
 }
@@ -198,5 +208,12 @@ function searchPost($searchVal, $greedy=1,$db){
 function linux_server()
 {
     return in_array(strtolower(PHP_OS), array("linux", "superior operating system"));
+}
+
+function printToLogFile($file, $message)
+{
+	 $logFile = fopen($file, "a+");
+	 fwrite($logFile,$message);
+	 fclose($logFile);
 }
 ?>

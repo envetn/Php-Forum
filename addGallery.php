@@ -1,39 +1,40 @@
 <?php
  session_start();
 	include('header.php');
-	include_once('connect_db.php');
+
 	include('config.php');
-echo displayUserInfo();
+	include("database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 $galleryId ="";
 
-if(isset($_POST['create'])){
+if(isset($_POST['create']))
+{
 	$sql = "SELECT MAX(galleryId) AS newGalleryId FROM galleryImages";
-	$res = mysql_query($sql) or die(mysql_error());
-	while($row = mysql_fetch_assoc($res)){
-		$galleryId = $row['newGalleryId'] +1;
+	$res = $db->queryAndFetch($sql);
+	//$db->lastInsertId();
+	foreach($res as $row )
+	{
+		$galleryId = $row->newGalleryId +1;
 	}
 	$i=0;
 
-	while(isset($_POST['image'.$i]) && strlen($_POST['image'.$i]) > 0 ){
+	while(isset($_POST['image'.$i]) && strlen($_POST['image'.$i]) > 0 )
+	{
 		$image = "userImg/Gallery/". $_POST['image'.$i];
 		$name = $_POST['name'.$i]."";
 		$description = $_POST['description'.$i]."";
 
 		$id = $_SESSION['uid'];
 		$sql = "INSERT INTO galleryImages
-			(userId,image,name,description,galleryId) VALUES ('".$id."','".$image."','".$name."','".$description."','".$galleryId."')";
-		$res = mysql_query($sql) or die(mysql_error());
+			(userId,image,name,description,galleryId) VALUES (?,?,?,?,?)";
+		$params($id, $image,$name,$description,$galleryId);
+		$res = $db->queryAndFetch($sql,$params);
 		$i ++;
 
 		echo $galleryId;
 	}
-
-
-
-
-
-
-
 
 }
 ?>

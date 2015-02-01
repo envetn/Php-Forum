@@ -1,19 +1,12 @@
-<style>
-
-</style>
 <?php
 
 session_start();
 	include('header.php');
-	include_once('connect_db.php');
 	include('config.php');
-		include("database.php");
+	include("database.php");
 
 $db = new Database($GLOBAL['database']);
 echo displayUserInfo($db);
-
-
-
 
 ?>
 <div id="forum_wrapper">

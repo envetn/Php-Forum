@@ -1,33 +1,38 @@
 <?php
  session_start();
 	include('header.php');
-	include_once('connect_db.php');
 	include('config.php');
-echo displayUserInfo();
-	$images = "";
+	include("database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
+$images = "";
+
 if(isset($_GET['id']) && is_numeric($_GET['id']))
 {
-$id = $_GET['id'];
+	$id = $_GET['id'];
 	//issnumeric
 	//open for injection
 	$sql = "SELECT *
 	FROM
 		galleryImages
 	WHERE
-		galleryId = {$id}";
-	$res = mysql_query($sql) or die(mysql_error());
+		galleryId = ?";
+	$params = array($id);
+	$res = $db->queryAndFetch($sql,$params);
+	
 	$images = "<h3> Edit </h3><form method='post' action='parse/editGallery_parse.php'><div class='div_single_gallery'>";
 	$i = 0;
 	$images .= '<label>Name of gallery: </label><input style="width:300px;"name="name" value=""></input>';
-	while($row = mysql_fetch_assoc($res))
+	foreach($res  as $row)
 	{
 
 		$images .= '<div class="div_single_edit_gallery">';
 		$images .=	/*'<input name="name" '.$i.' value=""></input>*/'
-						<input type="hidden"name="id'.$i.'" value="'.$row["id"].'"></input>
-						<img src="'.$row["image"].'" class="single_gallery"/>
-						<input name="img'.$i.'" value="'.$row["image"].'" type="hidden"></input>
-							<p>Description: <textarea name="description'.$i.'">'. $row["description"].'</textarea></p><hr/></div>';
+						<input type="hidden"name="id'.$i.'" value="'.$row->id.'"></input>
+						<img src="'.$row->image.'" class="single_gallery"/>
+						<input name="img'.$i.'" value="'.$row->image.'" type="hidden"></input>
+							<p>Description: <textarea name="description'.$i.'">'. $row->description.'</textarea></p><hr/></div>';
 							$i++;
 	}
   $images .= "<input type='submit' name='submit' value='Submit'> <div></form>";

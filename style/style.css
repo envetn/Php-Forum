@@ -157,32 +157,6 @@ a
 
 
 
-/*SPEC FOR INDEX, WHY? I DONT KNOW*/
-
-.cat_links
-{
-	font-size:20px;
-	text-decoration:none;
-	display:block;
-	padding: 20px;
-	padding-top: 10px;
-	padding-bottom:10px;
-	border: 1px solid #000000;
-	margin-bottom:5px;
-	background-color:#cccccc;
-	color:#000000;
-	
-}
-.cat_links:hover
-{
-	background-color: #dddddd;
-}
-
-.cat_links font
-{
-	font-size:15px;
-}
-
 /* addGallery.php style */
 
 #leftColumnGalleryUpload, #rightColumnGalleryUpload{

@@ -13,8 +13,12 @@ width:auto;
 <?php
 session_start();
 include('header.php');
-include_once('connect_db.php');
+
 include('config.php');
+include("database.php");
+
+$db = new Database($GLOBAL['database']);
+echo displayUserInfo($db);
 
 if(isset($_POST['EditUser']))
 {
@@ -25,9 +29,11 @@ if(isset($_POST['EditUser']))
 	$avatar = $_POST['avatar'];
 	$forum_notify = $_POST['Forum_notify'];
 	$password = md5($_POST['passwd']);
-	$sql = "UPDATE users SET username='{$username}',email='{$email}',forum_notify='{$forum_notify}', avatar='{$avatar}', password='{$password}'
-	WHERE id={$uid} LIMIT 1";
-	$res = mysql_query($sql) or die(mysql_error());
+	$sql = "UPDATE users SET username=?,email=?,forum_notify=?, avatar=?, password=?
+	WHERE id=? LIMIT 1";
+	$params = array($username,$email,$forum_notify,$avatar,$password,uid);
+	$res = $db->queryAndFetch($sql,$params);
+	var_dump($res);
 	/*$password = $_POST['passwd'];*/
 }
 if(isset($_POST['EditUser']))
@@ -40,11 +46,12 @@ if(isset($_POST['EditUser']))
 if(isset($_GET['name']))
 {
 	$name =  mysql_real_escape_string($_GET['name']);
-	$sql = "SELECT * FROM users WHERE username='{$name}' LIMIT 1;";
-	$res = mysql_query($sql) or die(mysql_error());
-	while($row = mysql_fetch_assoc($res))
+	$sql = "SELECT * FROM users WHERE username=? LIMIT 1;";
+	$params = array($name);
+	$res = $db->queryAndFetch($sql,$params);
+	foreach($res as $row )
 	{
-		$id = $row['id'];
+		$id = $row->id;
 	}
 }
 
@@ -52,28 +59,28 @@ if(isset($_GET['name']))
 if(isset($id) && $_SESSION['uid'] == $id)
 {
 	//same user as requested
-	$userThread =  getUserThreads($_SESSION['uid']);
+	$userThread =  getUserThreads($_SESSION['uid'],$db);
 	$uid = $_SESSION['uid'];
-	$table = getUserEdit($uid);
-	$gallery = getUserGalleries($uid);
+	$table = getUserEdit($uid,$db);
+	$gallery = getUserGalleries($uid,$db);
 }
 else if(isset($id) && is_numeric($id))
 {
-	$userThread =  getUserThreads($id);
-	$gallery = getUserGalleries($id);
+	$userThread =  getUserThreads($id,$db);
+	$gallery = getUserGalleries($uid,$db);
 }
 else if(!isset($id)) //enters the page via post, and not get
 {
-	$userThread =  getUserThreads($_SESSION['uid']);
+	$userThread =  getUserThreads($_SESSION['uid'],$db);
 	$uid = $_SESSION['uid'];
-	$table = getUserEdit($uid);
-	$gallery = getUserGalleries($uid);
+	$table = getUserEdit($uid,$db);
+	$gallery = getUserGalleries($uid,$db);
 }
 else
 {
 	$table = "<hh4'> Something weird has happened, please dont mess with the sql Stefan..</h4>";
 }
-echo displayUserInfo();
+
 echo '<div id="forum_wrapper">
 	<hr/>';
 echo " <div id='forum_wrapper'>";

@@ -46,7 +46,8 @@ function displayUserInfo($db)
 	<a href='parse/logout_parse.php'>logout</a></div>";
 
 }
-function getUserTable($uid){
+function getUserTable($uid)
+{
 	$sql = "SELECT * FROM users WHERE id = {$uid} LIMIT 1;";
 	$res = mysql_query($sql) or die(mysql_error());
 	if(mysql_num_rows($res) > 0){

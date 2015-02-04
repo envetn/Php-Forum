@@ -1,27 +1,30 @@
 <?php
 session_start();
 
-include_once("../connect_db.php");
-include("../config.php");
+include_once('../database.php');
+include_once('../config.php');
+
+
 if(isset($_POST['username']))
 {
- $username = $_POST['username'];
- $password = md5($_POST['password']);
- $sql = "SELECT * FROM users WHERE username='".$username."' AND password='".$password."' LIMIT 1";
- $res = mysql_query($sql) or die (mysql_error());
- if(mysql_num_rows($res) == 1)
- {
-   $row = mysql_fetch_assoc($res);
-   $_SESSION['uid'] = $row['id'];
-   $_SESSION['username'] = $row['username'];
-
- /*  $logFile = fopen("../logs/loginLogout.txt", "a+");
-   
-   fwrite($logFile,$log);
-   fclose($logFile);*/
-   $message = $username ." logged in at :" . date('l jS \of F Y h:i:s A') . "\n";
-   printToLogFile("../logs/loginLogout.txt", $message);
-   header("Location: ../index.php");
+	$db = new Database($GLOBAL['database']);
+	 $username = $_POST['username'];
+	 $passwd = md5($_POST['password']);
+	 $sql = "SELECT * FROM users WHERE username=? AND password=? LIMIT 1";
+	 $params = array($username,$passwd);
+	$res = $db->queryAndFetch($sql,$params);
+	 if($db->RowCount() == 1)
+	 {
+		  foreach($res as $row )
+		  {
+			    $_SESSION['uid'] = $row->id;
+				$_SESSION['username'] = $row->username;
+				break;
+		  }
+		
+		   $message = $username ." logged in at :" . date('l jS \of F Y h:i:s A') . "\n";
+		   printToLogFile("../logs/loginLogout.txt", $message);
+		   header("Location: ../index.php");
  }
  else
  {

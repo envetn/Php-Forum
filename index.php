@@ -13,6 +13,7 @@ echo displayUserInfo($db);
 /*
 
 */
+
 ?>
 
 <div id="forum_wrapper">

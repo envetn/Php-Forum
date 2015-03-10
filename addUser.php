@@ -7,7 +7,25 @@ session_start();
 
 $db = new Database($GLOBAL['database']);
 echo displayUserInfo($db);
+$message = "";
+if(isset($_GET['s']))
+{
 
+	$s = $_GET['s'];
+	if($s == '0')
+	{
+		$message = displayErrorMessage("THAT IS NOT A VALID EMAIL");
+
+	}
+	else if($s == '1')
+	{
+		$message = "Thank you for registering..";
+	}
+	else
+	{
+	}
+	
+}
 ?>
 <div id="forum_wrapper">
 <h2> Forum - Create user</h2>
@@ -41,3 +59,7 @@ echo displayUserInfo($db);
     </table>
   </form>
 </div>
+
+<?php
+echo $message;
+?>

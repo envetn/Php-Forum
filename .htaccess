@@ -1,4 +1,4 @@
-ErrorDocument 404 /filenotfound.php
+ErrorDocument 404 /forum/Error/fileNotFound.php
 
 IndexIgnore *
 <IfModule mod_rewrite.c>

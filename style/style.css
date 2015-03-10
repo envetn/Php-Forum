@@ -233,8 +233,51 @@ margin:0px;
 padding-bottom:20px;
 }
 
-
+#editGalleryForm{
+	border: 1px solid black;
+	padding:0;
+	margin:0;
+ }
+#editGalleryForm p{
+ margin-bottom:20px;
+ }
+ 
+ .div_single_edit_gallery textarea{
+width:60%;
+}
+.div_single_edit_gallery input
+ {
+	width:60%;
+ }
+ 
 /*END OF gallery.php STYLE*/
+
+/*ERROR MESSAGE*/
+
+.youShallNotPassPicture
+{
+}
+
+.youShallNotPassDiv
+{
+	
+	text-align:center;
+	padding:5px 0px 0px 0px;
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+	width:30%;	
+
+}
+.youShallNotPassDivP
+{
+
+}
+.youShallNotPassDivP p
+{
+	 margin: 0;
+    padding: 0;
+}
 
 /*FOR FANCYBOX*/
 .backdrop

@@ -1,12 +1,5 @@
 <?php
- session_start();
-	include('header.php');
 
-	include('config.php');
-	include("database.php");
-
-$db = new Database($GLOBAL['database']);
-echo displayUserInfo($db);
 $galleryId ="";
 
 if(isset($_POST['create']))
@@ -56,8 +49,10 @@ for($i=0;$i<1;$i++){
 		echo $table;*/
 ?>
 <!--<div style='width:80%; padding-left:20%; margin: 0 auto;'>-->
-<div id="forum_wrapper" >
 
+<div style=' margin: auto;
+    width: 1000px;
+    height: 200px;'>
 	<div id='leftColumnGalleryUpload'>
 		<h2>Upload image</h2>
 		<form action="parse/upload_file.php" method="post"
@@ -71,7 +66,7 @@ for($i=0;$i<1;$i++){
 	</div>
 
 	<div id='rightColumnGalleryUpload'>
-		<h2>Multiple Image Upload Form ( 1.5mb files allowed)</h2>
+		<h2>Multiple Image Upload Form <br/>( 1.5mb files allowed)</h2>
 
 		<form action="parse/upload_multi_files.php" method="post" enctype="multipart/form-data">
 		<input name='m_name' placeholder='Name' value=''></input><br/>
@@ -80,7 +75,5 @@ for($i=0;$i<1;$i++){
 		  <input type="submit" value="Upload!" />
 		</form>
 	</div>
-
-
-
 </div>
+

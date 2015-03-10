@@ -4,7 +4,6 @@ include_once("../config.php");
 		include("../database.php");
 
 $db = new Database($GLOBAL['database']);
-echo displayUserInfo($db);
 if(isset($_POST['user_submit']))
 {
 	$username = $_POST['user_name'];
@@ -22,19 +21,14 @@ if(isset($_POST['user_submit']))
 		//if user is going to be admin, change that in phpmyadmin
 		$sql = "INSERT INTO users(username,password,email,Registered, avatar) VALUES(?,?,?,?,?)";
 		$params = array($username,$password,$email,$now,$img);
-		$res = $db->queryAndFetch($sql,$params,true);
-		
-		if ($res)
-			{
-				echo "<p>Thank you for your registration<a href='../index.php'>\r\nReturn</p>";
-			}
-			else
-			{
-				echo "<p> There was an error, please do not try again</p>";
-			}
+		$res = $db->queryAndFetch($sql,$params);
+		header("Location: ../addUser.php?s=0");
 	}
 	else
-			echo "<p> Not a valid email</p>";
+	{
+		header("Location: ../addUser.php?s=0");
+	}
+			
 }
 else
 {

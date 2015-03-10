@@ -41,8 +41,9 @@ function displayUserInfo($db)
 		}
 		$HTML .= "<a href='userEdit.php'>Edit</a><br/> ";
 	}
-	return $HTML .= "<a href='index.php'> Return to index</a><br/>
-	<a href='addGallery.php'>Create gallery</a><br/>
+	return $HTML .= "
+	<a href='index.php'> Return to index</a><br/>
+	<a href='gallery.php?page=add'>Create gallery</a><br/>
 	<a href='parse/logout_parse.php'>logout</a></div>";
 
 }
@@ -214,7 +215,26 @@ function linux_server()
 function printToLogFile($file, $message)
 {
 	 $logFile = fopen($file, "a+");
-	 fwrite($logFile,$message);
+	 fwrite($logFile, date('Y-m-d H:i:s') ." - ". $message);
 	 fclose($logFile);
+}
+
+function displayErrorMessage($message)
+{
+	if(preg_match("/parse/", getcwd()))
+	{
+		return "<div class='youShallNotPassDiv'>
+				<img class='youShallNotPassPicture' src='../userImg/youShallNotPass.jpg'/>
+					<div class='youShallNotPassDivP'><p>The Wizard says: </p> <p style='color:red'>$message </p></div>
+			</div>";
+	}
+	else
+	{
+		return "<div class='youShallNotPassDiv'>
+				<img class='youShallNotPassPicture' src='userImg/youShallNotPass.jpg'/>
+					<div class='youShallNotPassDivP'><p>The Wizard says: </p> <p style='color:red'>$message </p></div>
+			</div>";
+	}
+	
 }
 ?>

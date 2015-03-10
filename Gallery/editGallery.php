@@ -1,11 +1,5 @@
 <?php
- session_start();
-	include('header.php');
-	include('config.php');
-	include("database.php");
 
-$db = new Database($GLOBAL['database']);
-echo displayUserInfo($db);
 $images = "";
 
 if(isset($_GET['id']) && is_numeric($_GET['id']))
@@ -39,24 +33,10 @@ if(isset($_GET['id']) && is_numeric($_GET['id']))
 }
 
 ?>
-<div id="forum_wrapper">
-<h2> Edit Gallery</h2>
-<style>
-form{
-	border: 1px solid black;
-	padding:0;
-	margin:0;
- }
- form p{
- margin-bottom:20px;
- }
 
-.div_single_gallery textarea{
-width:60%;
-}
-.div_single_gallery input
- {
-	width:60%;
- }
+<style>
+
+
+
 </style>
 <?=$images;?>

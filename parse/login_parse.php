@@ -22,13 +22,13 @@ if(isset($_POST['username']))
 				break;
 		  }
 		
-		   $message = $username ." logged in at :" . date('l jS \of F Y h:i:s A') . "\n";
+		   $message =  $username . " Logged on\n";
 		   printToLogFile("../logs/loginLogout.txt", $message);
 		   header("Location: ../index.php");
  }
  else
  {
-	echo "invalid password or user";
+	header("Location: ../failed.php");
 	exit();
  }
 }

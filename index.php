@@ -1,4 +1,4 @@
-
+//index on raspberry  pi
 
 <?php
  session_start();
@@ -32,7 +32,6 @@ $userC ="";
 	{
 		while($row = mysql_fetch_assoc($res))
 		{
-		
 			$id = $row['id'];
 			$title = $row['category_title'];
 			$description = $row['category_description'];

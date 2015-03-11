@@ -82,7 +82,14 @@ if(linux_server()){
 					{
 						$newImage = $manipulator->resample(1080, 950);
 					}
-					$destination = 'F:/test_web/Current/working/forum/userImg/Gallery/' . $_SESSION['uid'] . '/';	
+					if(linux_server())
+					{
+						$destination ='/home/pi/www/forum/userImg/Gallery/' . $_SESSION['uid'] . '/';
+					}
+					else
+					{
+						$destination = 'F:/test_web/Current/working/forum/userImg/Gallery/' . $_SESSION['uid'] . '/';	
+					}
 					$manipulator->save($destination . $newNamePrefix . $_FILES['files']['name'][$f]);
 				
 				

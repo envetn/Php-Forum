@@ -1,5 +1,3 @@
-//index on raspberry  pi
-
 <?php
  session_start();
 	include('header.php');
@@ -9,7 +7,7 @@ echo displayUserInfo();
 
 
 /*
-
+RASPBERRY INDEX
 */
 ?>
 

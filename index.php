@@ -20,6 +20,24 @@ echo displayUserInfo($db);
 <hr/>
 <!--<a href='search.php'>Search </a>-->
 <?php
+$page = "";
+if(isset($_GET['cid']))
+{
+	if(isset($_GET['tid']) && Isset($_GET['page']) )
+	{
+		$page = "view_topic";
+	}
+	else if(isset($_GET['reply']))
+	{
+		$page = "reply";
+	}
+	else
+	{
+		$page = "view_cat";
+	}
+	
+}
+
 include("search.php");
 $userC ="";
 ?>
@@ -27,25 +45,40 @@ $userC ="";
 
 <div id="content">
 <?php
-	
-	$sql = "SELECT * FROM categories ORDER BY category_title ASC;";
-	$res = $db->queryAndFetch($sql);
-	$categories = "";
-	if($db->RowCount() > 0)
+	if($page == "")
 	{
-
-		foreach($res as $row )
+		$sql = "SELECT * FROM categories ORDER BY category_title ASC;";
+		$res = $db->queryAndFetch($sql);
+		$categories = "";
+		if($db->RowCount() > 0)
 		{
-			$id = $row->id;
-			$title = $row->category_title;
-			$description = $row->category_description;
-			$categories .= "<a class='cat_links' href='view_cat.php?cid=".$id."'>{$title}<font size='-1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {$description}</font></a>";
+
+			foreach($res as $row )
+			{
+				$id = $row->id;
+				$title = $row->category_title;
+				$description = $row->category_description;
+				//$categories .= "<a class='cat_links' href='view_cat.php?cid=".$id."'>{$title}<font size='-1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {$description}</font></a>";
+				$categories .= "<a class='cat_links' href='index.php?cid=".$id."'>{$title}<font size='-1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  {$description}</font></a>";
+			}
+			echo $categories;
 		}
-		echo $categories;
+		else
+		{
+			echo "No category avaliable";
+		}
 	}
-	else
+	else if($page == "view_cat")
 	{
-		echo "No category avaliable";
+		include("Forum/view_cat.php");
+	}
+	else if($page == "reply")
+	{
+		include("Forum/post_reply.php");
+	}
+	else if($page == "view_topic")
+	{
+		include("Forum/view_topic.php");
 	}
 ?>
 </div>

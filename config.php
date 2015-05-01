@@ -101,13 +101,15 @@ function getUserEdit($uid,$db)
 		return $userTable;
 }
 
-function getUserNameFromUid($uid)
+function getUserNameFromUid($uid,$db)
 {
-	$sql = "SELECT * FROM users WHERE id={$uid} LIMIT 1";
-	$res = mysql_query($sql) or die(mysql_error());
-	while($row = mysql_fetch_assoc($res))
+	$sql = "SELECT * FROM users WHERE id=? LIMIT 1";
+	$params = array($uid);
+	$res = $db->queryAndFetch($sql,$params);
+
+	foreach($res as $row )
 	{
-		return $row['username'];
+		return $row->username;
 	}
 
 

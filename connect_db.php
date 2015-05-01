@@ -1,5 +1,5 @@
 <?php
-$host = "localhost";
+/*$host = "localhost";
 $username ="root";
 $password = "";
 $db = "forum";
@@ -11,7 +11,7 @@ mysql_select_db($db);
 
 /***
 perhaps not
-*/
+*//*
 function get_query($sql)
 {
 	return mysql_query($sql) or die(mysql_error());
@@ -28,5 +28,5 @@ function login()
 		$login =  "<p> Logged in as : " . $_SESSION['username'] . "&bull; <a href='parse/logout_parse.php'>logout</a></p>";
 	}
 	return $login;
-}
+}*/
 ?>

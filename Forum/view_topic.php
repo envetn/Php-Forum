@@ -1,7 +1,4 @@
-
-
 <?php
-
 
 //pre variables
 $cid = is_numeric($_GET['cid']) ? $_GET['cid'] : 0 ;
@@ -13,6 +10,9 @@ $max ="";
 $maxsql = "SELECT COUNT(*) as COUNT FROM posts WHERE topic_id=$tid;";
 $maxres = $db->queryAndFetch($maxsql);
 
+/*
+ * Pagin
+ */
 foreach($maxres as $maxrow )
 {
 	$max=$maxrow->COUNT;
@@ -43,38 +43,35 @@ if($page >= $max)
 }
 $previous = $page-1;
 
-
-
 ?>
 
-	<h2> Forum topic</h2>
-	<a href='view_cat.php?cid=<?=$cid?>'>back to Categori </a>
+	
 	<?php
 	$paging = "";
-	
-		include_once("connect_db.php");
+	$topicName = "";
+	$button = "";
 		
 		$sql = "SELECT * FROM topic WHERE category_id=? AND id=? LIMIT 1";
 		$params = array($cid,$tid);
 		$res = $db->queryAndFetch($sql,$params);
-
+	
 		if($db->RowCount() == 1)
 		{
-			echo "<table width='100%'>";
+			
+			$table = "<table width='100%'>";
 			if(isset($_SESSION['uid']))
 			{ 
-					echo "<tr><td colspan='2'><input type='submit' value='Add replay' onClick=\"window.location='index.php?reply=1&cid=".$cid."&tid=".$tid."'\"/><hr/>";
+				$button = "<tr><td colspan='2'><input type='submit' value='Add replay' onClick=\"window.location='index.php?reply=1&cid=".$cid."&tid=".$tid."'\"/><hr/>";
 					
-				} 
-				else
-				{
-					echo "<tr><td colspan='2'> <p> Please log in to reply</p>";
-				}
+			} 
+			else
+			{
+				$button = "<tr><td colspan='2'> <p> Please log in to reply</p>";
+			}
 				foreach($res as $row )
 				{
-			
-					$limit = $page * 10;
 					
+					$limit = $page * 10;
 					
 					$paging .= "<div class='pagin'> <a href='{$_SERVER['PHP_SELF']}?cid=$cid&tid=$tid&page=0'>First</a> ";
 					$paging .= " <a href='{$_SERVER['PHP_SELF']}?cid=$cid&tid=$tid&page=$previous'>&#8656; </a> &nbsp;".$page;
@@ -94,30 +91,28 @@ $previous = $page-1;
 					$sql21 = "SELECT * FROM users WHERE id=?";
 					$params = array($row2->post_creator);
 					$res21 = $db->queryAndFetch($sql21,$params);
-				
 					foreach($res21 as $row21 )
 					{
 						$img = $row21->avatar;
 						$name = $row21->username; 
-					
-						
 					}
 					if($row->topic_creator == $row2->post_creator)
 					{ 
 						$name 	= isset($name) 	? $name	 : "Unknow";
 						$img 	= isset($img) 	? $img	 : "userImg/default.jpg";
-						echo "<tr>
+						$table .= "<tr>
 						<td valign='top' style='border: 1px solid black;'> 
-						<div style='min-height:200px; '><div class='OP_feild'>".$row->topic_title ."<br/> By ".$name." - ".$row2->post_date." - Creator (OP)<hr/></div>".$row2->post_content."</div></td>";	
+						<div style='min-height:200px; '><div class='OP_feild'><br/> By ".$name." - ".$row2->post_date." - Creator (OP)<hr/></div>".$row2->post_content."</div></td>";	
+						$topicName = $row->topic_title;
 					}
 					else
 					{
-						echo "<tr>
+						$table .= "<tr>
 						<td valign='top' style='border: 1px solid black;'> 
 						<div style='min-height:200px;'><div class='normal_field'> By ".$name." - ".$row2->post_date."<hr/></div>".$row2->post_content."</div></td>";	
 					}
 					
-					echo "<td width='200' valign='top' align='center' style='border:1px solid black;'>User: <a href='userEdit.php?name=".$name."'>".$name."</a><img src='".$img."' width='180' height='120'/></td></tr><tr> <td colspan='2'><hr/></td></tr>";
+					$table .= "<td width='200' valign='top' align='center' style='border:1px solid black;'>User: <a href='userEdit.php?name=".$name."'>".$name."</a><img src='".$img."' width='180' height='120'/></td></tr><tr> <td colspan='2'><hr/></td></tr>";
 				}
 				$old_views = $row->topic_views;
 				$new_views = $old_views + 1;
@@ -127,13 +122,15 @@ $previous = $page-1;
 
 				
 			}
-			echo "</table>";
+			$table .= "</table>";
 		}
 		else
 		{
 			echo "<p> There was an error, please refresh the page</p>";
 		}
-	
+	echo "<h2>Topic: $topicName</h2> <a href='view_cat.php?cid=<?=$cid?>'>Back to Categori </a>";
+	echo $table;
+	echo $button;
 	echo $paging;
 	?>
 

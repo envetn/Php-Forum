@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("../connect_db.php");
-include('../../src/Class/TextFilter/TextFilter.php');
+include('../src/Class/TextFilter/TextFilter.php');
 include_once("../config.php");
 include("../database.php");
 

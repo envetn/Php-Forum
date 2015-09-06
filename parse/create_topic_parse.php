@@ -4,18 +4,15 @@ session_start();
 include("../database.php");
 include("../config.php");
 $db = new Database($GLOBAL['database']);
-echo displayUserInfo($db);
 
 
 if(($_SESSION['uid'] == "") )
 {
 	header("Location: ../index.php");
 }
-	exit();
 
 if(isset($_POST['topic_submit']))
 {
-	
 	
 	if(($_POST['topic_title'] == "") && ($_POST['topic_content'] == ""))
 	{
@@ -25,7 +22,10 @@ if(isset($_POST['topic_submit']))
 	}
 	else
 	{
-		
+		/*
+		 * TODO 
+		 * Validat incoming data
+		 */
 		$cid = is_numeric($_POST['cid']) ? $_POST['cid'] : 0 ;
 		$title = $_POST['topic_title'];
 		$content = $_POST['topic_content'];
@@ -41,7 +41,7 @@ if(isset($_POST['topic_submit']))
 			
 		$sql3 = "UPDATE categories SET last_post_date=now(), last_user_posted='".$creator."' WHERE id='".$cid."' LIMIT 1";
 		$db->queryAndFetch($sql3);
-	/*	if( ($res) && ($res2) && ($res3) )
+		if( ($res) && ($res2) && ($res3) )
 		{
 			header("Location: ../view_topic.php?cid".$cid."&tid=".$new_topic_id);
 		}
@@ -49,8 +49,9 @@ if(isset($_POST['topic_submit']))
 		{
 			echo "The res failed";
 		}
-	*/
-	header("Location: ../view_topic.php?cid".$cid."&tid=".$new_topic_id);
+	
+	
+	header("Location: ../index.php?cid=".$cid."&tid=".$new_topic_id."&page=0");//cid".$cid."&tid=".$new_topic_id);
 	}	
 	
 }

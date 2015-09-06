@@ -1,22 +1,12 @@
 
-<style>
 
-#returnForm{
-width:80%;
-padding-left:20%;
-}
-.staticValResult{
-font-size:20px;
-}
-</style>
 
 <?php
-
 $searchVal = "";
-if(isset($_GET['Submit']) && isset($_GET['q1']))
+if(isset($_GET['Submit'])/* && isset($_GET['q1'])*/)
 {
 	$searchVal = $_GET['searchValue'];
-	$greedy = $_GET['q1'];
+	$greedy = isset($_GET['q1']);
 	$returnVal = searchPost($searchVal,$greedy,$db);
 
 }
@@ -24,8 +14,8 @@ if(isset($_GET['Submit']) && isset($_GET['q1']))
 
 <form method='get'>
 <p> <input type='text' name='searchValue' value='<?=$searchVal?>'/>
-<input type='submit' name='Submit' value='Search'></p>
-<p> Greedy search :<input type='radio' name="q1" value="1">Yes<input TYPE="radio" name="q1" value="0">No</p>
+<input class='search_button' type='submit' name='Submit' value='Search'></p>
+<!-- <p> Greedy search :<input type='radio' name="q1" value="1">Yes<input TYPE="radio" name="q1" value="0">No</p> -->
 
 </form> 
 <div id='returnForm'>
@@ -37,6 +27,5 @@ if(isset($_GET['Submit']) && isset($_GET['q1']))
 
 </div>
 
-<?php
 
 

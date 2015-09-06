@@ -1,5 +1,4 @@
 
-
 <?php
  session_start();
 	include('header.php');
@@ -10,16 +9,6 @@
 $db = new Database($GLOBAL['database']);
 echo displayUserInfo($db);
 
-/*
-
-*/
-
-?>
-
-<div id="forum_wrapper">
-<hr/>
-<!--<a href='search.php'>Search </a>-->
-<?php
 $page = "";
 if(isset($_GET['cid']))
 {
@@ -35,16 +24,12 @@ if(isset($_GET['cid']))
 	{
 		$page = "view_cat";
 	}
-	
 }
 
+echo "<div id='forum_wrapper'><hr/>";
 include("search.php");
-$userC ="";
-?>
-<hr/>
+echo "<div id='content'>";
 
-<div id="content">
-<?php
 	if($page == "")
 	{
 		$sql = "SELECT * FROM categories ORDER BY category_title ASC;";

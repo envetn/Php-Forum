@@ -18,7 +18,7 @@
 		</style> 
 		<?php endif;?> 
 	<link rel="shortcut icon" href="images/logoPhp.png"> 
-	
+	<!-- Dafuq is this? -->
 		<script type="text/javascript">
  
 			$(document).ready(function(){
@@ -47,6 +47,8 @@
 			}
  
 		</script>
+
+
 </head>
 <body>
 <nav class='forum_menu'>
@@ -54,5 +56,7 @@
 	<a id='index-' href='../Stuff.php'>Hem </a>
 	<a id='index-' href='index.php'>Forum </a>
 	<a id='index-' href='gallery.php'>Gallery </a>
+	<p><?php include("search.php");?></p> <!-- Should make this a function -->
 </nav>
+
 

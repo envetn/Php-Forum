@@ -47,6 +47,7 @@
 				$views 	 = $row2->topic_views;
 				$date 	 = $row2->topic_date;
 				$creator = $row2->topic_creator;
+				$nameOfCreator = getUserNameFromUid($creator,$db );
 				
 				$maxsql = "SELECT COUNT(*) as Count FROM posts WHERE topic_id LIKE ? ;";
 				$params = array($tid);
@@ -58,7 +59,7 @@
 				
 				
 				//$topics .= "<td > <a class='cat_threads'href='view_topic.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $creator." on ".$date."</span></a></td>";
-				$topics .= "<td > <a class='cat_threads' href='index.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $creator." on ".$date."</span></a></td>";
+				$topics .= "<td > <a class='cat_threads' href='index.php?cid=".$cid."&tid=".$tid."&page=0'>".$title."<br/> <span class='post_info'> Posted by: ". $nameOfCreator." on ".$date."</span></a></td>";
 				$topics .= "<td align='center'>$max</td><td align='center'>".$views."</td>";
 				$topics .= "<tr> <td colspan='3'><hr/></td></tr>";
 			}
